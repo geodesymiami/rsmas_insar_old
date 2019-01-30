@@ -12,7 +12,7 @@ import subprocess
 sys.path.insert(0, os.getenv('PARENTDIR') + '/accounts')
 import password_config as password
 
-def main(iargs=None):
+def main():
     """gets ISCE code with wget"""
 
     isce_version = 'isce-2.2.0.tar.bz2'
@@ -23,12 +23,11 @@ def main(iargs=None):
     os.chdir(isce_dir)
 
     command = ['wget', '--user=' + password.unavuser, '--password=' + password.unavpass, 'https://imaging.unavco.org/software/ISCE/' + isce_version]
-    print ('downloading isce ...')
-    print ('\n' + ' '.join(command) + '\n')
+    print('downloading isce ...')
+    print('\n' + ' '.join(command) + '\n')
     status = subprocess.Popen(' '.join(command), shell=True).wait()
     if status is not 0:
         raise Exception('ERROR downloading isce')
-
 
     sentinelstack_dir = os.getenv('PARENTDIR') + '/3rdparty/sentinelstack'
 
@@ -36,14 +35,13 @@ def main(iargs=None):
         os.makedirs(sentinelstack_dir)
     os.chdir(sentinelstack_dir)
 
-    command = ['svn co', '--username ' + password.earthdefuser, '--password ' + password.earthdefpass, 'http://earthdef.caltech.edu/svn/sentinelstack','--non-interactive']
+    command = ['svn co', '--username ' + password.earthdefuser, '--password ' + password.earthdefpass, 'http://earthdef.caltech.edu/svn/sentinelstack', '--non-interactive']
     print("downloading sentinelStack (via svn checkout) ...")
-    print ('\n' + ' '.join(command) + '\n')
+    print('\n' + ' '.join(command) + '\n')
     status = subprocess.Popen(' '.join(command), shell=True).wait()
     if status is not 0:
         raise Exception('ERROR in svn checkout of sentinelStack')
 
 ###########################################################################################
 if __name__ == '__main__':
-    main(sys.argv[1:])
-
+    main()
