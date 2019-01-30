@@ -1,0 +1,81 @@
+##### getSAR, raw2slc and createBaselineList  options ###############################
+#walltime            = 4:00
+processor           = roipac
+memoryCoregist      = 4000               # change this for more frames
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+track               = 417
+frame               = 660
+#startFrame          = 50
+#endFrame            = 50
+startDate           = 060713
+endDate             = 110124
+masterDate          = 080116
+raw2slc_OrbitType   = HDR 
+#ssaraopt            = --platform=Alos -r 495 -f 50 -s 2007-02-20  -e 2011-12-31 --beamSwath=7
+ssaraopt            = scp  visx.ccs.miami.edu:/famelung/yzhang1/L0data/Alos/PIXEL/417_660/\* .
+selectNetwork.method              = delaunay
+selectNetwork.perpBaseMax         = 2500
+selectNetwork.tempBaseMax        = 900
+selectNetwork.tempBaseMin        = 0
+selectNetwork.seasonal            = yes
+selectNetwork.dopOverlapThresh    = 15
+#interferogramList  = [090106-100928]
+
+
+
+####### ROI_PAC OPTIONS ##############################
+DEM                = /nethome/yzhang1/insarlab/DEM/Japan/ShikokuT417F660AlosA/gsi10m.dem
+DEMg               = /nethome/yzhang1/insarlab/DEM/Japan/ShikokuT417F660AlosA/gsi10m_80m.dem
+flattening         = orbit       #['topo']
+OrbitType          = HDR
+Rlooks_sim         = 1
+Rlooks_int         = 8
+Rlooks_unw         = 8
+unw_method         = snaphu      #['snaphu','old','treef']
+#snap_conncomthresh = 60
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.5/4
+Filt_method        = psfilt
+FilterStrength     = 0.5
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+ampmagFineopt      = 50/50/256/64
+pixel_ratio        = 3
+#tiltdegree        = 2
+cleanopt           = 1
+
+
+
+####### PySAR #########################################
+#pysar.dropIfgIndex = 7,13,18,19,21,24,28,34,36:38,42,43,55:57,72,76,86,88,92
+pysar.inputFiles     = $SCRATCHDIR/ShikokuT417F660AlosA/PROCESS/DONE/IFG*/filt*.unw
+pysar.corFiles       = $SCRATCHDIR/ShikokuT417F660AlosA/PROCESS/DONE/IFG*/filt_*rlks.cor
+pysar.wrappedFiles   = $SCRATCHDIR/ShikokuT417F660AlosA/PROCESS/DONE/IFG*/filt_*rlks.int
+
+pysar.geomap         = $SCRATCHDIR/ShikokuT417F660AlosA/PROCESS/GEO/geo*/geomap*.trans
+pysar.dem.radarCoord = $SCRATCHDIR/ShikokuT417F660AlosA/PROCESS/DONE/*080116-080302*/radar*rlks.hgt
+pysar.dem.geoCoord   = $DEMDIR/Japan/ShikokuT417F660AlosA/gsi10m_80m.dem
+
+#pysar.subset.yx   = 380:580,780:1210
+#pysar.subset.lalo = 31.53:31.64,130.57:130.73
+#pysar.seed.yx   = 8,370
+#pysar.seed.lalo = 31.5, 67
+
+pysar.unwrapError                      = no
+
+pysar.troposphericDelay                = no
+pysar.troposphericDelay.method         = pyaps  # ['height-correlation', 'pyaps']
+pysar.troposphericDelay.polyOrder      = 1
+pysar.troposphericDelay.weatherModel   = ECMWF  # ['ECMWF', 'MERRA', 'NARR']
+pysar.acquisitionTime                  = 12:00  # ['00:00', '06:00', '12:00', '18:00']
+
+pysar.topographicResidual           = yes
+pysar.orbitError          = no
+pysar.orbitError.method   = plane       # ['quadratic', 'plane', 'quadratic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+
+pysar.mask                 = yes
+pysar.mask.threshold       = 0.7
+pysar.geocode              = yes
+pysar.kml                  = yes
+

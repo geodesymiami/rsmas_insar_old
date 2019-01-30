@@ -1,0 +1,62 @@
+##### getSAR, raw2slc and createBaselineList  options ###############################
+processor           = roipac
+memoryCoregist      = 3700
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+ssaraopt            = scp  $TESTDATADIR/Alos/424_630/\* .           
+masterDate          = 080212
+raw2slc_OrbitType   = HDR 
+selectNetwork        = delaunay
+perpBaseMax         = 70
+perpBaseMax         = 1000     
+tempBaseMin        = 0
+tempBaseMax        = 366
+DopOverlapThresh    = 15
+
+####### ROI_PAC OPTIONS ##############################
+DEM                 =  ~/development/DEMDIR/Japan/Kirishima/gsi10m.dem
+DEMg                =  ~/development/DEMDIR/Japan/Kirishima/srtm30m_120m.dem
+flattening          = orbit
+OrbitType           = HDR
+Rlooks_sim          = 1
+Rlooks_int          = 8
+Rlooks_unw          = 8
+#unw_method         = old
+unw_method          = treef
+unw_method          = snaphu
+#snap_conncomthresh = 60
+Filt_method         = psfilt_adapt_filt
+FilterStrength      = 0.5/4
+Filt_method         = psfilt
+FilterStrength      = 0.5
+UnwrappedThreshold  = 0.10
+maskingwith0height  = TRUE
+ampmagFineopt       = 70/70/64/32
+ampmagFineopt       = 50/50/256/64
+pixel_ratio         = 3
+#tiltdegree         = 2
+cleanopt            = 1
+
+######### PySAR options ##############################
+#pysar.subset.yx = 1800:2000,700:800
+#pysar.seed.yx = 1050, 710
+#pysar.seed.ll            = 31.9920:130.9665
+
+pysar.unwrapError                    = no
+pysar.troposphericDelay              = no
+pysar.troposphericDelay.method       = pyaps  # ['height-correlation', 'pyaps']
+pysar.troposphericDelay.polyOrder    = 1
+pysar.troposphericDelay.weatherModel = ECMWF  # ['ECMWF', 'MERRA', 'NARR']
+pysar.acquisitionTime                = 12:00  # ['00:00', '06:00', '12:00', '18:00']
+
+pysar.topographicResidual           = yes
+pysar.orbitError          = yes
+pysar.orbitError.method   = plane       # ['quadratic', 'plane', 'quadratic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+
+pysar.mask                 = yes
+pysar.mask.threshold       = 0.7
+pysar.geocode              = yes
+
+######### process_rsmas options ##############################
+pysar_subset_lalo        = 31.7000:32.1000,130.5000:131.1000
+pysar_geocode_timeseries = 1

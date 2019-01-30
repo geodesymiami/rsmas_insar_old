@@ -1,0 +1,31 @@
+####### getSAR, raw2slc and createBaselineList  options ###############################
+source             = winsar
+satellite          = Ers
+track              = 213
+startFrame         = 2745
+%endFrame           = 2763
+endFrame          = 2853
+#startDate         = 950501
+#endDate           = 951212
+%interferogramList  = [ 920725-990921 930501-981110 ]
+interferogramList = [ 920725-990921 930501-981110 930918-981006 951016-990223 951017-000523 951121-000801 960409-000905 960514-980519 ]
+%interferogramList = [ 920725-990921 930501-981110 930918-981006 951016-990223 960514-980519 ]
+%interferogramList = [ 920725-990921 951017-000523 951121-000801 ]
+raw2slc_OrbitType  = ODR
+DopOverlapThresh   = 15    
+####### ROI_PAC OPTIONS ##############################
+DEM                = $TESTBENCH/noel_sciencepaper/ROIPAC_DEMS/ngourmelen/T213/T213F2745-2853.dem
+DEMg               = $TESTBENCH/noel_sciencepaper/ROIPAC_DEMS/ngourmelen/T213/T213F2745-2853_180m.dem
+OrbitType          = HDR
+Rlooks_sim         = 2
+Rlooks_int         = 8
+Rlooks_unw         = 8
+meter_per_cycle    = 6.283
+unw_method         = snaphu
+snap_conncomthresh = 60
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.5/4
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+#web   = --wildcard 'geo*[0-9].unw.dem*jpg' --wildcard 'filt*SIM*rlks.intamp*jpg' --wildcard 'geo*.unw.kmz'
+clean              = --KeepSBASgeo --DoItFrom vexall

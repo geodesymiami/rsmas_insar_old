@@ -1,0 +1,33 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%dir_out_parent                               =  strcat(getenv('TESTBENCH'))
+prepareopt.demfile                           =   strcat(getenv('TESTBENCH'),filesep, 'noel_sciencepaperbig/ROIPAC_DEMS/ngourmelen/T213/T213F2745-2853_180m.dem.hgt')
+prepareopt.ShadedRelieffile                  =   strcat(getenv('TESTBENCH'),filesep, 'noel_sciencepaperbig/ROIPAC_DEMS/ngourmelen/T213/T213F2745-2853_180m.dem.jpeg')
+prepareopt.Shadefac                          =  0.1 
+prepareopt.CLim                              =  [-0.01 0.01]
+prepareopt.symbopt.Quakes.dep_ranges         =[20 70] ;
+prepareopt.symbopt.Quakes.dep_symbols        ={'yo'} ; ;
+prepareopt.symbopt.Quakes.mag_ranges         =[2.2 3.0 9] ;
+prepareopt.symbopt.Quakes.mag_symbols        ={{'MarkerSize',0.1} {'MarkerSize',0.2}} ;
+prepareopt.Profile.xy                       =  [5 19; 27 8.5]
+%prepareopt.Cmap                             =  dismphF
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+makesaropt.dir_inlist{1}                     =   strcat(getenv('TESTBENCH'),filesep, 'noel_sciencepaperbig/process/BandRT213ErsD/DONE/')
+makesaropt.pattern                           =  PO*/geo*.unw  
+%makesaropt.subset.ji                         =  [1250 650 512 512]          ;% LL
+%makesaropt.data2igramopt.corfile             =  mean.cor                  
+makesaropt.data2igramopt.cormask_thresh      =  0.05                  
+makesaropt.data2igramopt.cormask_area_open   =  500                  
+makesaropt.igram2motionopt.RateMethod        =  Rand
+makesaropt.igram2motionopt.RateMethod        =  SimpleAverage
+makesaropt.igram2motionopt.NumStacks         =  40
+makesaropt.igram2motionopt.StackSortMethod   =  MeanRating
+%makesaropt.igram2motionopt.MedFiltSize      =  11
+makesaropt.samplesaropt.Method               =  Grid
+makesaropt.samplesaropt.GridRowsCols         =  [4 4]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+modelopt.N_disloc                            =  0
+modelopt.N_mogi                              =  1
+modelopt.par.xy                              =  [20 20  10 0.1  ]
+inverseopt.DoIt                              =  off
+plotthemodelopt.DoIt                         =  off
+plotsurface3dopt.DoIt                        =  off

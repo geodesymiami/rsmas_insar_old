@@ -1,0 +1,51 @@
+##### getSAR, raw2slc and createBaselineList  options ###############################
+processor           = roipac
+#walltime            = 4:00
+memoryCoregist      = 3700
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+platform            = CSK
+ssaraopt            = scp  $TESTDATADIR/CskSlc/Terranova/\* .
+masterDate          = 150713
+raw2slc_OrbitType   = HDR 
+selectNetwork        = delaunay
+selectNetwork        = ALl
+perpBaseMax         = 2500     
+tempBaseMax        = 32
+tempBaseMin        = 0
+DopOverlapThresh    = 15
+#interferogramList  = [090106-100928]
+
+####### ROI_PAC OPTIONS ##############################
+flattening         = orbit
+OrbitType          = HDR
+Rlooks_sim         = 4
+Rlooks_int         = 16
+Rlooks_unw         = 16
+unw_method         = snaphu
+Filt_method        = psfilt_adapt_filt
+Filt_method        = psfilt
+FilterStrength     = 0.5/4
+FilterStrength     = 0.5
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+#ampmagFineopt      = 70/70/64/32
+pixel_ratio        = 1
+#tiltdegree         = 2
+cleanopt            = 1
+
+######################################################
+#pysar.subset.yx = 1800:2000,700:800
+#pysar.seed.yx = 1050, 710
+#pysar.seed.ll            = 31.9920:130.9665
+pysar.unwrapError       = no
+pysar.topographicResidual         = yes
+pysar.orbitError        = yes
+pysar.orbitError.method = plane # ['quadratic', 'plane', 'quardatic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+pysar.troposphericDelay = no
+pysar.troposphericDelay.method = height-correlation
+pysar.mask               = yes
+pysar.mask.threshold     = 0.7
+pysar.geocode            = yes
+pysar_subset.lalo        = 31.7000:32.1000,130.5000:131.1000
+pysar_geocode_timeseries = 1

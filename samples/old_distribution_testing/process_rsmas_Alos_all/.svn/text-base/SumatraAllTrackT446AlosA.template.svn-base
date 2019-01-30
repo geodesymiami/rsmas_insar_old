@@ -1,0 +1,26 @@
+####### getSAR, raw2slc,createBaselineList, SelectPairs  OPTIONS ###############################
+source             = asf
+satellite          = Alos
+track              = 446
+startFrame         = 7120
+endFrame           = 7190
+raw2slc_OrbitType  = AUTO                    
+selectMethod        = All            
+perpBaseMax         = 1000                                      
+DopOverlapThresh    = 15
+####### ROI_PAC OPTIONS ##############################
+DEM                = $TESTBENCH/process_rsmas_Alos_all/ROIPAC_DEMS/echaussard/T446/T446_x3.dem
+flattening         = orbit
+OrbitType          = AUTO
+Rlooks_sim         = 1
+Rlooks_int         = 1
+Rlooks_unw         = 1
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.5/4
+unw_method         = snaphu
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+#web               = --wildcard 'geo*[0-9].unw.dem*jpg' --wildcard 'filt*SIM*rlks.intamp*jpg' --wildcard 'geo*.unw.kmz'
+#email              = --geo --kmz --to amelung
+#clean              = --KeepSBASgeo --DoItFrom vexall
+######################################################

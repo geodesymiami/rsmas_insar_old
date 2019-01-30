@@ -1,0 +1,65 @@
+##### getSAR, raw2slc and createBaselineList  options ###############################
+###############################
+Walltime            = 4:00
+walltime            = 4:00
+walltime_slc2igram  = 2:00
+source              = esa
+satellite           = Env
+track               = 256
+masterOffsetdate    = 040917
+masterDate          = 040917
+#startDate           = 030101
+#endDate             = 110101
+raw2slc_OrbitType   = DOR 
+selectMethod        = all
+perpBaseMax         = 200
+perpBaseMax         = 10
+#temporalBaseMin     = 3
+#temporalBaseMax     = 10.0
+lengthDayMax        = 10000
+lengthDayMin        = 0
+#interferogramList  = [090106-100928]
+#IREAlist            = /home/ngourmelen/IREA/ListInterf.txt
+DopOverlapThresh    = 15
+#L0Dir               = /RAID7/L0DATA/Env/213/Env/213    
+
+
+####### ROI_PAC OPTIONS ##############################
+DEM                = $TESTBENCH/Chaman_Env/DEMDIR/ChamanT256F585EnvA6/ChamanT256F585EnvA6.dem
+
+#flattening         = topo
+flattening         = orbit
+OrbitType          = HDR
+Rlooks_sim         = 1
+Rlooks_int         = 8
+Rlooks_unw         = 8
+#meter_per_cycle    = 6.283
+#unw_method         = old
+unw_method         = snaphu
+#snap_conncomthresh = 60
+#Filt_method        = psfilt
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.7
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+#tiltdegree         = 2
+#clean              = --KeepSBASgeo --removedir --keepSBASradargeo --keepSBASradar
+#web               = --wildcard 'geo*[0-9].unw.dem*jpg' --wildcard 'filt*SIM*rlks.intamp*jpg' --wildcard 'geo*.unw.kmz'
+
+######################################################
+####### TSSAR   OPTIONS ##############################
+######################################################
+PySAR.inputdata = /scratch/yzhang1/PROCESS/ChamanT256F585EnvA6/DONE/IFGRAM_*/filt_*c10.unw
+PySAR.CorFiles  = /scratch/yzhang1/PROCESS/ChamanT256F585EnvA6/DONE/IFGRAM_*/filt_*cor
+#PySAR.wraped = /scratch/hfattahi/PROCESS/ChamanT485EnvA6/DONE/IFG*/filt_*0*sim_HDR_8rlks.int
+
+#PySAR.subset.yx = 1800:2000,700:800
+#PySAR.seed.ll=31.5, 67  or  PySAR.seed.yx=257 , 151
+
+PySAR.topo_error = yes
+PySAR.orbit_error = no
+PySAR.orbit_error.method = plane 
+# ['quadratic', 'plane', 'quardatic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+PySAR.tropospheric_delay = no
+PySAR.mask=yes
+PySAR.mask.threshold = 0.7

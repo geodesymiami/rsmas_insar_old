@@ -1,0 +1,63 @@
+####### ssara, raw2slc, SelectPairs  options ###############################
+processor           = roipac
+memoryCoregist      = 3700
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+ssaraopt            = --platform=Radarsat-1 -r 111 -s 1998-01-01 -e 2010-10-21 -f 392
+ssaraopt            = --platform=Radarsat-1 -r 332 -s 1998-01-01 -e 2010-10-21 --intersectsWith='POINT(-155.59 19.47)'
+ssaraopt            = --platform=Radarsat-1 -r 332 -s 2006-01-01 -e 2006-12-11 -f 3198
+
+raw2slc_OrbitType  = HDR
+masterDate         = 060726
+selectNetwork.dopOverlapThresh = 15
+selectNetwork.method       = hierarchical
+selectNetwork.tempPerpList = 250,600;400,400;1000,200;9000,50
+
+####### ROI_PAC OPTIONS ##############################
+DEM                = /nethome/famelung/insarlab/DEMDIR/Hawaii_10m/output.dem
+DEM                = /nethome/famelung/insarlab/DEMDIR/Hawaii_srtm30/output.dem
+DEMg               = /nethome/famelung/insarlab/DEMDIR/Hawaii_srtm30/output.dem
+OrbitType          = HDR
+flattening         = orbit
+Rlooks_sim         = 1
+Rlooks_int         = 4
+Rlooks_unw         = 4
+meter_per_cycle    = 6.283
+#tiltdegree         = 2
+unw_method         = treef
+unw_method         = snaphu
+snap_conncomthresh = 60
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.3/4
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+cleanopt            = 1
+######################################################
+######## PySAR   OPTIONS ##############################
+#######################################################
+#pysar.unwrapFiles   =/projects/scratch/insarlab/famelung/MaunaLoaT111RsatSA6/PROCESS/DONE/IFG*/filt*notilt.unw
+pysar.network.coherenceBased = no  # yes    #search and use input coherence file
+pysar.network.startDate = 20000101
+pysar.troposphericDelay.method       = no # pyaps  # ['height-correlation', 'pyaps']
+pysar.troposphericDelay.weatherModel = ECMWF  # ['ECMWF', 'MERRA', 'NARR']
+pysar.network.tempBaseMax     = auto #[1-inf, no], auto for no, maximum temporal baseline in days
+pysar.networkInversion.weightFunc = variance # variance #[variance / no / coherence], auto for no
+pysar.reference.lalo          = 19.9,-155.8   #[31.8,130.8 / auto]
+pysar.unwrapError = no
+pysar.topographicResidual   = yes
+pysar.deramp      = plane # ['quadratic', 'plane', 'quardatic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+pysar.subset.lalo = no # -0.18:-0.16,-78.62:-78.60
+pysar.temporalCoherence.threshold  = 0.6    #[0.0-1.0], auto for 0.7
+pysar.geocode          = yes
+pysar.save.hdfEos5     = yes   #[yes / no], auto for no, save timeseries to HDF-EOS5 format
+
+######################################################
+######## unavco OPTIONS ##############################
+######################################################
+unavco.beam_mode      = S
+unavco.beam_swath     = 1
+unavco.relative_orbit = 332
+hdf5eos.beam_mode      = S
+hdf5eos.beam_swath     = 1
+hdf5eos.referenceText      = 'Amelung,F.,S-H. Yun,T.R. Walter,P. Segall and S.W. Kim (2007) Stress control of deep rift intrusion at Mauna Loa volcano, Hawaii. Science 316: 1026-1030 [DOI: 10.1126/science.1140035]'
+hdf5eos.referencePdf       = http://www.rsmas.miami.edu/personal/famelung/Publications_files/Amelung_etal_Science2007.pdf

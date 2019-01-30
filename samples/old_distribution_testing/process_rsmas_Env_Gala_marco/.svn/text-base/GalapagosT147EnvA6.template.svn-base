@@ -1,0 +1,66 @@
+## TEMPLATE FILE FOR GALAPAGOS ENVISAT TRACK:147 A6 ############################################
+####### getSAR, raw2slc,createBaselineList, SelectPairs  options ###############################
+source             = winsar
+satellite          = Env
+track              = 147
+boundingBox        = -0.25,-91.67,-0.51,-91.37
+raw2slc_OrbitType  = DOR                    #DOR - HDR - AUTO
+startDate          = 061020                      
+endDate            = 090417                     
+selectMethod       = Delaunay
+perpBaseMax        = 400                              # some comment
+temporalBaseMin    = 0.01                             # minimum temporal baseline
+temporalBaseMax    = 4.0                            # maximum temporal baseline
+DopOverlapThresh   = 15    
+####### ROI_PAC OPTIONS ##############################
+DEM                = $TESTBENCH/process_rsmas_Env_Gala_marco/ROIPAC_DEMS/mbagnardi/Fernandina/Fernandina_SRTM3g_1i_merged.dem
+flattening         = orbit
+Rlooks_sim         = 1
+Rlooks_int         = 2
+Rlooks_unw         = 2
+meter_per_cycle    = 6.283
+unw_method         = snaphu
+snap_conncomthresh = 60
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.5/4
+#unw_method         = treef
+#UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+#web               = --wildcard 'geo*[0-9].unw.dem*jpg' --wildcard 'filt*SIM*rlks.intamp*jpg' --wildcard 'geo*.unw.kmz'
+#email              = --geo --kmz --to amelung
+clean              = --KeepSBASgeo --DoItFrom vexall
+#masterSLCdate      = 071214
+######################################################
+####### TSSAR   OPTIONS ##############################
+tssar                         = TRUE
+dir_out_parent                =  $TESTBENCH/process_rsmas_Env_Gala_marco
+
+inputdataopt.readFormat       = single
+inputdataopt.seed             = max
+inputdataopt.cortresh         = 0.3
+inputdataopt.percentcortresh  = 70
+inputdataopt.Tcortresh        = 0
+inputdataopt.APSspatial       = 20   % In pixels
+inputdataopt.APStemporal      = 200  % In days
+
+inputdataopt.rateopt.method              = linear
+inputdataopt.rateopt.time_range          = [2003 2008]
+
+%inputdataopt.removeplane.poly.x         = [50 350 350 50;150 150 350 350;280 280 350 350]
+%inputdataopt.removeplane.poly.y         = [150 150 300 300;440 600 600 440;300 380 380 300]
+inputdataopt.removeplane.method          = secondorderpolyn
+inputdataopt.removeplane.filter_outliers = on
+%
+
+%runningopt.check_interferograms = yes
+%runningopt.check_curl        = yes
+%runningopt.check_ampcorrmask = yes
+
+runningopt.remove_plane       = yes
+runningopt.tempcorrmask       = yes
+runningopt.topo_error         = yes
+runningopt.timeseries         = yes
+
+runningopt.APS                = yes
+%displayopt.baselineplot      = yes
+%displayopt.timeseries        = yes

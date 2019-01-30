@@ -1,0 +1,5 @@
+ssara_federated_query.py --platform=ALOS -r 495 -f 50 --download --parallel=40 --print
+ssara_federated_query.py --platform=ENVISAT -r 399 -f 2781 --dem
+wget -O dem.tif "http://ot-data1.sdsc.edu:9090/otr/getdem?north=42.519900&south=38.481300&east=-114.083712&west=-116.589000&demtype=SRTM30"
+
+ssara_federated_query.py --platform=ENVISAT -r 399 -f 2781 -s 2007-07-01 -e 2008-08-01 --collectionName=WInSAR ESA --parallel 20 --download

@@ -1,0 +1,65 @@
+##### getSAR, raw2slc and createBaselineList  options ###############################
+###############################
+processor           = roipac
+Walltime            = 4:00
+walltime            = 4:00
+walltime_slc2igram  = 2:00
+#source              = esa
+satellite           = Env
+#track               = 256
+#Chaman frames:477 495 513 531 549 567 585 603 621
+# 256 (Frames 477, 495, 513, 531, 549, 567, 585)
+ssaraopt            = --platform=Envisat -r 256 -f 567 --beamSwath=S6 -s 2003-01-01  -e 2011-12-31     # need to find out frame number
+masterDate          = 040917
+#startDate           = 030101
+#endDate             = 110101
+#endDate             = 081231
+raw2slc_OrbitType   = DOR 
+#selectNetwork        = delaunay
+selectNetwork        = all
+perpBaseMax         = 20
+perpBaseMax         = 200
+#temporalBaseMin     = 3
+#temporalBaseMax     = 10.0
+tempBaseMax        = 10000
+tempBaseMin        = 0
+#interferogramList  = [090106-100928]
+DopOverlapThresh    = 15
+
+####### ROI_PAC OPTIONS ##############################
+DEM                =  $PARENTDIR/data/testdata/roi_pac/ChamanT256F585EnvA6/DEMDIR/ChamanT256F585EnvA6.dem
+flattening         = orbit
+OrbitType          = HDR
+Rlooks_sim         = 1
+Rlooks_int         = 8
+Rlooks_unw         = 8
+#meter_per_cycle    = 6.283
+unw_method         = treef
+unw_method         = snaphu
+#snap_conncomthresh = 60
+#Filt_method        = psfilt
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.7
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+cleanopt            = 1
+
+#tiltdegree         = 2
+#web               = --wildcard 'geo*[0-9].unw.dem*jpg' --wildcard 'filt*SIM*rlks.intamp*jpg' --wildcard 'geo*.unw.kmz'
+
+######################################################
+####### TSSAR   OPTIONS ##############################
+######################################################
+#pysar.wraped = /scratch/hfattahi/PROCESS/ChamanT485EnvA6/DONE/IFG*/filt_*0*sim_HDR_8rlks.int
+#pysar.subset.yx = 1800:2000,700:800
+#pysar.seed.ll=31.5, 67  or  pysar.seed.yx=257 , 151
+
+pysar.topo_error = yes
+pysar.orbit_error = no
+pysar.orbit_error.method = plane 
+# ['quadratic', 'plane', 'quardatic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+pysar.tropospheric_delay = no
+pysar.mask=yes
+pysar.mask.threshold = 0.7
+pysar.geocode = yes
+

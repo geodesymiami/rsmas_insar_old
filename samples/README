@@ -1,0 +1,102 @@
+##########################################
+1. The first step is to get your download 
+credentials to populate
+$SSARAHOME/password_config.py
+
+With this you are able to run ssara and get
+the data directly from the data sources
+
+2.  Now run the same examples that you used to
+test the installation. In contrast to the testing 
+ssara is downloading the data for you from the 
+data centers (WinSAR, ESA, ASF).
+
+3. As you are testing you may want to use a 
+different SCRATCHDIR directory. This can be done
+with the alias TESTBENCH, which sets it to $SCRATCHDIR/TESTBENCH.
+There are also aliasses TESTBENCH1, TESTBENCH2, TESTBENCH3. 
+After running an alias go with cd $SCRATCHDIR to 
+your working directory. 
+
+4. Try processing the different steps individually. After each step look in the different directories
+to see what happened:
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startssara       --stopssara
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startprepare     --stopprepare
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startslc         --stopsslc
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startprocessfilt --stopprocessfilt
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startcoregist    --stopcoregist
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startprocessdone --stopprocessdone
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template --startpysar
+
+5. Once you are familiar with these steps run everything at once:
+process_rsmas.pl $SAMPLESDIR/SinabungT495F50AlosA.template 
+
+6. To run other data sets create new template files by replacing the corresponding parameters.
+
+7. All the examples in the samples directories are working and are meant to demonstrate particular processing aspects.
+
+##########################################
+#  Sensors and data types             #
+##########################################
+TSX 
+1. Stripmap
+     (Mexico City example?)
+2. Spotlight
+   process_rsmas.pl $SAMPLESDIR/CotopaxiT119TsxA.template --startssara --stopprocessfilt
+   (fails in simulation)
+3. Stripmap concatenated
+   process_rsmas.pl $SAMPLESDIR/YellowstoneTsxD.template --startssara --stopslc 
+     (concatenation does not work)
+##########################################
+CSK
+1. RAW  (stripmap) (one frame)
+   process_rsmas.pl $SAMPLESDIR/CotopaxiT6CskA.template --startssara --stopslc
+
+2. SLC one frame  (stripmap)
+     (MexicocityCskSlc)
+3. SLC concatenated  (stripmap)
+   process_rsmas.pl $SAMPLESDIR/TerranovaT09CskSlcD.template --startssara --stopslc
+         (currently gives an error related to missing DEM)
+##########################################
+JERS
+1. One frame (raw)
+   process_rsmas.pl $SAMPLESDIR/KirishimaT79F247Jers.template --startssara --stopslc
+
+2. Concatenated
+    ( to be done ) 
+##########################################
+ENVISAT
+1. One frame
+   process_rsmas.pl $SAMPLESDIR/WellsquakeT399EnvD2.template --startssara --stopslc
+2. Concatenate
+    (Chaman example?)
+##########################################
+ERS
+1. One frame
+   process_rsmas.pl $SAMPLESDIR/SocorroT098F2907ErsD.template --startssara --stopslc
+2. Concatenated
+    (Socorro example)
+   
+
+##########################################
+Data Type Examples to be added:
+
+Jers concat:  KirishimaT79F247-???Jers.template  
+Rsat1:        Galapagos   (Falk will try)
+Rsat2:        Sinabung
+Rsat2 concat: Colombia  (processing to end)
+
+example for different polarizations: (Sang-Hoon)
+##########################################
+Data Type Examples to be added:
+Other examples for testing
+Tsx Strip:  Baekdu  (need filled DEM)
+Baekdu Jers:
+Baekdu Alos1:
+Baekdu Rsat1?
+
+
+
+
+
+

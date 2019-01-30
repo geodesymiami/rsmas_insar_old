@@ -1,0 +1,68 @@
+# The following works fine for processing/coregistration with Heresh's original version of the coregistration code
+# located in mimic/PySAR (Yunjun's version)   FA 6/28/2015
+
+cd /nethome/hfattahi/
+setenv UTILITIESHOME ~/development/UTILITIES
+setenv AUXDATAHOME ~/insarlab
+cd development/roi_pac_v2.2.2/
+source cshrc_roi_pac_release
+source cshrc_useful_aliases
+
+setenv SLCDIR     /projects/scratch/insarlab/famelung/SLC
+setenv PROCESSDIR /projects/scratch/insarlab/famelung/PROCESS
+setenv L0DIR      /projects/scratch/insarlab/famelung/L0data
+setenv L0DIR_ALOS /projects/scratch/insarlab/famelung/L0data/Alos
+setenv L0DIR_ENV  /projects/scratch/insarlab/famelung/L0data/Env
+setenv SCRATCHDIR /projects/scratch/insarlab/famelung
+setenv SAMPLESDIR /nethome/famelung/development/rsmas_insar/samples
+
+mkdir -p $L0DIR
+mkdir -p $SLCDIR
+mkdir -p $PROCESSDIR
+
+##### Sinabung ########
+set templatefile=$SAMPLESDIR/SinabungT495F50AlosA.template
+set templatebasename=SinabungT495F50AlosA
+set refigram=IFGRAM_SinabungT495F50AlosA_070220-080108_0322_-0032
+set refigram=IFGRAM_SinabungT495F50AlosA_070708-070823_0046_-0020
+ln -s /nethome/famelung/development/rsmas_insar/data/testdata/roi_pac/Sinabung_Alos/L0data/Alos/ $L0DIR/Alos 
+##### Chaman  #########
+set templatefile=$SAMPLESDIR/ChamanT256F585EnvA6.template
+set templatebasename=ChamanT256F585EnvA6
+set refigram=IFGRAM_ChamanT256F585EnvA6_040917-050311_0175_-0135
+set refigram=IFGRAM_ChamanT256F585EnvA6_040917-070803_1050_-0019
+mv $SCRATCHDIR/TESTBENCH1/SLC/* /projects/scratch/insarlab/famelung/SLC/ChamanT256F585EnvA6
+##### Wells  #########
+set templatefile=$SAMPLESDIR/WellsquakeT399EnvD2.template
+set templatebasename=WellsquakeT399EnvD2
+set refigram=IFGRAM_WellsquakeT399EnvD2_070813-080728_0350_-0199
+ln -s /nethome/famelung/development/rsmas_insar/data/testdata/roi_pac/WellsquakeT399EnvD2/L0DIR/Env $L0DIR/Env 
+#######################
+
+raw2slc_alos.pl                $templatefile  WorkDir=$SCRATCHDIR
+createBaselineList.pl          $templatefile 
+selectPairs_Coregist.py        $templatefile 
+split_igramJobs_filt.py        $templatefile   12:00
+
+createCoregistrationList.py   $templatefile 
+Coregist_all_To_masterDate.py $templatefile  $refigram
+   # produces in PROCESS all the coregirstToDEMAssist commenda in  Coregist.process 
+rm $PROCESSDIR/$templatebasename/x*
+replace_coregistered_files.py $templatefile 
+split_igramJobs_done.py        $templatefile   12:00
+
+#######################
+
+$INT_SCR/raw2slc_alos.pl                $templatefile  WorkDir=$SCRATCHDIR
+$INT_SCR/createBaselineList.pl          $templatefile 
+#$INT_SCR/selectPairs_Coregist.py        $templatefile 
+$INT_SCRF/selectPairs_Coregist.py $templatefile         #use this because Yunjuns selectPairs is modified
+$INT_SCR/split_igramJobs_filt.py        $templatefile   12:00
+
+$INT_SCR2/createCoregistrationList.py   $templatefile 
+$INT_SCR2/Coregist_all_To_masterDate.py $templatefile  $refigram
+   # produces Coregist.process in directory  PROCESS 
+rm $PROCESSDIR/$templatebasename/x*
+$INT_SCR2/replace_coregistered_files.py $templatefile 
+$INT_SCR/split_igramJobs_done.py        $templatefile   12:00
+

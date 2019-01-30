@@ -1,0 +1,35 @@
+####### getSAR, raw2slc,createBaselineList, SelectPairs options ###############################
+#sarDataGroup         = [ T399F2781EnvD2 T127F2781EnvD2 T492F819EnvA2 T220F819EnvA2 ]
+source                = CSTARS
+satellite             = Env
+parallelDownloads     = 20
+boundingBox           = 0.45,-91.8,-1.1,-90.4
+raw2slc_OrbitType     = DOR 
+#startDate            = 080401 
+#endDate              = 091231 
+#masterPeriod         = [ 080401 090405 ] # period of master image
+#slavePeriod          = [ 090406 091231 ] # period of slave image
+#selectMethod         = All 
+selectMethod          = Delaunay
+perpBaseMax           = 600 # some comment
+temporalBaseMin       = 0.0 # minimum temporal baseline
+temporalBaseMax       = 10.0 # maximum temporal baseline
+interferogramList     = [ 080426-080531 ] # individual interferograms
+%excludeList          = [ 080326 ] % Snow
+DopOverlapThresh      = 15
+############# raw2slc options #######################
+####### ROI_PAC OPTIONS ##############################
+%slcType              = CR4
+DEM                   = $TESTBENCH/process_rsmas_Env_Gala/DEMDIR/galapagos/Galapagos_SRTM3g_1i_merged.dem
+OrbitType             = HDR
+flattening            = orbit
+Rlooks_sim            = 1
+Rlooks_int            = 4
+Rlooks_unw            = 4
+FilterStrength        = 0.8
+unw_method            = snaphu
+UnwrappedThreshold    = 0.10
+maskingwith0height    = TRUE
+clean                 = --KeepSBASgeo --removedir
+walltime            = 4:00:00
+Walltime            = 4:00:00

@@ -1,0 +1,104 @@
+####### ssara, raw2slc, SelectPairs  options ###############################
+memoryCoregist      = 3700
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+ssaraopt            = --platform=Envisat -r 399 -f 2781 -s 2007-01-01  -e 2008-12-31 --collection="WInSAR ESA"
+raw2slc_OrbitType  = DOR
+selectNetwork.method       = all     
+selectNetwork.perpBaseMax  = 200     
+masterDate          = 070813
+DopOverlapThresh   = 15    
+######## ROIPAC OPTIONS ##############################
+Rlooks_sim         = 1
+Rlooks_int         = 4
+Rlooks_unw         = 4
+pixel_ratio        = 5
+######## GAMMA OPTIONS ##############################
+processor          = gamma
+DEM                = $PARENTDIR/data/testdata/roi_pac/WellsquakeT399EnvD2/DEMDIR/wells_srtm3_swap.dem
+cleanopt            = 1
+######### COREGISTRATION 
+#   Coreg_Master              = 120818   # This is replaced by "masterDate"
+#Coreg_Method              = DEM     # or amplitude
+Coreg_Method              = amplitude     # or amplitude
+Coreg_Coarse              = ampcor   # orbit: orbit only, ampcor: ampcor only, both: both orbit and ampcor
+#Coreg_Rcenter             = 5000   # if not declare, it use center of image - 
+#Coreg_Acenter             = 10000  # if not declare, it use center of image -
+Coreg_Coarse_Rlooks       = 4       # number of range looks 
+Coreg_Coarse_Alooks       = 12       # number of azimuth looks
+Coreg_Fine_Rwin           = 64      # 
+Coreg_Fine_Azwin          = 128     #
+Coreg_Fine_Novr           = 2       #
+Coreg_Fine_Rnwin          = 100     #
+Coreg_Fine_Aznwin         = 100     #
+Coreg_Fine_Snr            = 0.5     # 
+########## INTERFEROGRAM
+Igram_Flag                = Y
+Igram_Rlooks              = 4
+Igram_Alooks              = 4
+Igram_Spsflg              = 1          # range spectral filter        1: apply      0: do not apply 
+Igram_Azfflg              = 1          # azimuth common band filter   1: apply      0: do not apply
+Igram_Rp1flg              = 1          # SLC-1 range phase mode       1: doppler centroid      0: zero doppler
+Igram_Rp2flg              = 1          # SLC-2 range phase mode       1: doppler centroid      0: zero doppler  
+Igram_Flag_TDM            = N
+Igram_Cor_Rwin            = 5
+Igram_Cor_Awin            = 5
+Igram_Flattening          = orbit       # orbit: orbit only, fft: residual fringe removal with fft estimation 
+Igram_FilterMethod        = adaptfilt  # adaptfilt, adf
+Igram_FilterStrength      = 0.8/4
+Igram_FFTLength           = 512
+######### TOPO CONVERSION  is not written yet...
+Topo_Flag                 = N
+Topo_UnwrappedThreshold   = 0.3
+######### SIMULATION PHASE
+Simphase_Flag             = Y
+Simphase_DEM              = /STORAGE1/scratch/shong/insarlab/DEMDIR/Greenland/Greenland_T163_PS.dem
+Simphase_Lat_Ovr          = 2
+Simphase_Lon_Ovr          = 2
+Simphase_rlks             = 2
+Simphase_azlks            = 2
+Simphase_rpos             = -
+Simphase_azpos            = -
+Simphase_patch             = -
+Simphase_rwin             = 256
+Simphase_azwin            = 256
+########## DIFFERENTIAL
+Diff_Flag                 = Y
+Diff_Method               = subphase   # lsfit: use unwrapped phase, subphase: use wrapped phase
+Diff_Flattening           = fft      # fft: residual fringe removal with fft estimation, quadfit: quad-fit model estimation, and orbit: orbit only
+Diff_FilterMethod         = adaptfilt  # adaptfilt, adf  if not declared, same as Igram option
+Diff_FilterStrength       = 0.8/4      #                 if not declared, same as Igram option
+Diff_FFTLength            = 512        #                 if not declared, same as Igram option
+######### UNWRAP
+Unwrap_Flag               = Y
+######### GEOCODE
+Geocode_Flag              = Y
+######### OFFSET PWR TRACKING
+Offset_pwr_Flag           = Y
+Offset_pwr_tracking_Rwin  = 128
+Offset_pwr_tracking_Awin  = 256
+Offset_pwr_tracking_Novr  = 1
+Offset_pwr_tracking_Cycle = 10
+Offset_pwr_tracking_Thres = 0.7
+Offset_pwr_tracking_Rstep = 10
+######################################################
+######## PySAR   OPTIONS ##############################
+#######################################################
+pysar.network.coherenceBased     = yes  #[yes / no], auto for yes, exclude interferograms with coherence < minCoherence
+pysar.temporalCoherence.threshold= auto    #[0.0-1.0], auto for 0.7
+pysar.network.minCoherence       = 0.4 # 0.4  #[0.0-1.0], auto for 0.7
+pysar.networkInversion.weightFunc   = auto #[variance / no / linear / normal], auto for no, coherence to weight
+pysar.deramp                     = plane  #[no / plane / quadratic], auto for no - no ramp will be removed
+
+pysar.troposphericDelay.method = no  #[pyaps / height_correlation / base_trop_cor / no], auto for pyaps
+pysar.geocode          = yes
+pysar.save.hdf5eos     = no   #[yes / no], auto for no, save timeseries to HDF-EOS5 format
+######################################################
+######## unavco OPTIONS ##############################
+######################################################
+unavco.mission            = Env                 # ERS,ENV,S1,RS1,RS2,CSK,TSX,JERS,ALOS,ALOS2
+unavco.relative_orbit     = 399
+unavco.frame              = 0
+unavco.beam_mode          = IS                   # S2,FB08,IW
+unavco.beam_swath         = 2
+unavco.processing_type    = LOS_TIMESERIES

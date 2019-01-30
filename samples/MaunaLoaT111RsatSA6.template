@@ -1,0 +1,138 @@
+####### ssara, raw2slc, SelectPairs  options ###############################
+processor          = gamma
+memoryCoregist      = 3700
+memoryProcessFilt   = 3700
+memoryProcessDone   = 3700
+ssaraopt            = --platform=Radarsat-1 -r 111 -s 1998-01-01 -e 2010-10-31 -f 392
+ssaraopt            = --platform=Radarsat-1 -r 111 -s 2005-03-01 -e 2005-10-31 -f 392
+raw2slc_OrbitType  = HDR
+masterDate   = 050622
+#selectNetwork.seasonal     = no
+selectNetwork.dopOverlapThresh = 15
+selectNetwork.method       = hierarchical
+selectNetwork.tempPerpList = 250,600;400,400;1000,200;9000,50
+selectNetwork.startDate  = 050301
+selectNetwork.endDate    = 051031
+
+####### ROI_PAC OPTIONS ##############################
+DEM                = /nethome/famelung/insarlab/DEMDIR/Hawaii_srtm30/output_swap.dem
+OrbitType          = HDR
+flattening         = orbit
+pixel_ratio        = 5
+Rlooks_sim         = 1
+Rlooks_int         = 4
+Rlooks_unw         = 4
+meter_per_cycle    = 6.283
+#tiltdegree         = 2
+unw_method         = treef
+unw_method         = snaphu
+snap_conncomthresh = 60
+Filt_method        = psfilt_adapt_filt
+FilterStrength     = 0.3/4
+UnwrappedThreshold = 0.10
+maskingwith0height = TRUE
+cleanopt            = 1
+######################################################
+######## GAMMA OPTIONS ##############################
+######### COREGISTRATION 
+#   Coreg_Master              = 120818   # This is replaced by "masterDate"
+#Coreg_Method              = DEM     # or amplitude
+Coreg_Method              = amplitude     # or amplitude
+Coreg_Coarse              = ampcor   # orbit: orbit only, ampcor: ampcor only, both: both orbit and ampcor
+#Coreg_Rcenter             = 5000   # if not declare, it use center of image - 
+#Coreg_Acenter             = 10000  # if not declare, it use center of image -
+Coreg_Coarse_Rlooks       = 4       # number of range looks 
+Coreg_Coarse_Alooks       = 12       # number of azimuth looks
+Coreg_Fine_Rwin           = 64      # 
+Coreg_Fine_Azwin          = 128     #
+Coreg_Fine_Novr           = 2       #
+Coreg_Fine_Rnwin          = 100     #
+Coreg_Fine_Aznwin         = 100     #
+Coreg_Fine_Snr            = 0.5     # 
+
+########## INTERFEROGRAM
+Igram_Flag                = Y
+Igram_Rlooks              = 4
+Igram_Alooks              = 4
+Igram_Spsflg              = 1          # range spectral filter        1: apply      0: do not apply 
+Igram_Azfflg              = 1          # azimuth common band filter   1: apply      0: do not apply
+Igram_Rp1flg              = 1          # SLC-1 range phase mode       1: doppler centroid      0: zero doppler
+Igram_Rp2flg              = 1          # SLC-2 range phase mode       1: doppler centroid      0: zero doppler  
+Igram_Flag_TDM            = N
+Igram_Cor_Rwin            = 5
+Igram_Cor_Awin            = 5
+Igram_Flattening          = orbit       # orbit: orbit only, fft: residual fringe removal with fft estimation 
+Igram_FilterMethod        = adaptfilt  # adaptfilt, adf
+Igram_FilterStrength      = 0.8/4
+Igram_FFTLength           = 512 
+
+######### TOPO CONVERSION  is not written yet...
+Topo_Flag                 = N 
+Topo_UnwrappedThreshold   = 0.3
+
+######### SIMULATION PHASE
+Simphase_Flag             = Y
+Simphase_DEM              = /STORAGE1/scratch/shong/insarlab/DEMDIR/Greenland/Greenland_T163_PS.dem 
+Simphase_Lat_Ovr          = 2
+Simphase_Lon_Ovr          = 2
+Simphase_rlks             = 2
+Simphase_azlks            = 2
+Simphase_rpos             = -
+Simphase_azpos            = -
+Simphase_patch             = -
+Simphase_rwin             = 256
+Simphase_azwin            = 256
+
+########## DIFFERENTIAL
+Diff_Flag                 = Y
+Diff_Method               = subphase   # lsfit: use unwrapped phase, subphase: use wrapped phase
+Diff_Flattening           = fft      # fft: residual fringe removal with fft estimation, quadfit: quad-fit model estimation, and orbit: orbit only
+Diff_FilterMethod         = adaptfilt  # adaptfilt, adf  if not declared, same as Igram option
+Diff_FilterStrength       = 0.8/4      #                 if not declared, same as Igram option
+Diff_FFTLength            = 512        #                 if not declared, same as Igram option
+
+######### UNWRAP
+Unwrap_Flag               = Y
+
+
+######### GEOCODE
+Geocode_Flag              = Y
+
+######### OFFSET PWR TRACKING
+Offset_pwr_Flag           = Y
+Offset_pwr_tracking_Rwin  = 128
+Offset_pwr_tracking_Awin  = 256
+Offset_pwr_tracking_Novr  = 1
+Offset_pwr_tracking_Cycle = 10
+Offset_pwr_tracking_Thres = 0.7
+Offset_pwr_tracking_Rstep = 10
+Offset_pwr_tracking_Astep = 20
+######################################################
+######## PySAR   OPTIONS ##############################
+#######################################################
+#pysar.unwrapFiles   =/projects/scratch/insarlab/famelung/MaunaLoaT111RsatSA6/PROCESS/DONE/IFG*/filt*notilt.unw
+pysar.network.coherenceBased = yes  # yes    #search and use input coherence file
+pysar.troposphericDelay.method       = no # pyaps  # ['height-correlation', 'pyaps']
+pysar.troposphericDelay.weatherModel = ECMWF  # ['ECMWF', 'MERRA', 'NARR']
+pysar.network.tempBaseMax     = 450  #[1-inf, no], auto for no, maximum temporal baseline in days
+pysar.network.startDate       = 20000801  #[20090101 / no], auto for no
+
+pysar.unwrapError = no
+pysar.topographicResidual   = yes
+pysar.deramp      = plane # ['quadratic', 'plane', 'quardatic_range', 'quadratic_azimiuth', 'plane_range', 'plane_azimuth','baselineCor','BaseTropCor']
+pysar.subset.lalo = no # -0.18:-0.16,-78.62:-78.60
+pysar.temporalCoherence.threshold  = auto    #[0.0-1.0], auto for 0.7
+pysar.geocode     = yes
+pysar.save.unavco = yes
+######################################################
+######## unavco OPTIONS ##############################
+######################################################
+unavco.mission            = RS1                 # ERS,ENV,S1,RS1,RS2,CSK,TSX,JERS,ALOS,ALOS2
+unavco.relative_orbit     = 111
+unavco.frame              = 0
+unavco.beam_mode          = SM                   # S2,FB08,IW
+unavco.beam_swath         = 6
+unavco.processing_type    = LOS_TIMESERIES
+unavco.processing_software= ROI_PAC
+unavco.referenceText      = 'Amelung,F.,S-H. Yun,T.R. Walter,P. Segall and S.W. Kim (2007) Stress control of deep rift intrusion at Mauna Loa volcano, Hawaii. Science 316: 1026-1030 [DOI: 10.1126/science.1140035]'
+unavco.referencePdf       = http://www.rsmas.miami.edu/personal/famelung/Publications_files/Amelung_etal_Science2007.pdf
