@@ -25,8 +25,9 @@ def main():
     command = ['wget', '--user=' + password.unavuser, '--password=' + password.unavpass, 'https://imaging.unavco.org/software/ISCE/' + isce_version]
     print('downloading isce ...')
     print('\n' + ' '.join(command) + '\n')
-    status = subprocess.Popen(' '.join(command), shell=True).wait()
-    if status is not 0:
+    p = subprocess.Popen(command,  stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    output, error = p.communicate()
+    if p.returncode is not 0:
         raise Exception('ERROR downloading isce')
 
     sentinelstack_dir = os.getenv('PARENTDIR') + '/3rdparty/sentinelstack'
