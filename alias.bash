@@ -198,4 +198,4 @@ alias killperl='kill -9             `ps uax |  grep perl   |  awk '\''{printf   
 ############ FOR PySAR SOFTWARE  ########
 alias pysarold='export PYSAR_HOME=${PARENTDIR}/sources/old/PySAR; export PYTHONPATH=${PYSAR_HOME}; export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/shellscripts'
 ############################
-PS1="//\h${PWD}[\!] "
+PS1='//\h${PWD}[\!] '
