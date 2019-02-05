@@ -33,14 +33,14 @@ cd ~/test/test1
 * Install the code using the commands below (you need a reasonable recent git version (the default on pegasus is too old, get a [local version](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/install_git.md), or use an old rsmas_insar version). Installation takes about 10 minutes.
 
 ```
-git clone https://github.com/geodesymiami/rsmas_insar.git;
+git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
 source default_isce22.conf;
 ./install_miniconda3.csh;
 rehash;
 ./download_and_copy_3rdparty.sh;
 
-git clone https://github.com/geodesymiami/accounts;
+git clone https://github.com/geodesymiami/accounts ;
 
 ./install_credential_files.csh;
 ./download_isce.py
@@ -48,16 +48,16 @@ git clone https://github.com/geodesymiami/accounts;
 ./accounts.csh;
 mkdir sources;
 cd sources;
-git clone https://github.com/geodesymiami/rsmas_isce.git; 
-git clone https://github.com/yunjunz/PySAR.git
-git clone https://github.com/falkamelung/geodmod.git;
+git clone https://github.com/geodesymiami/rsmas_isce.git ; 
+git clone https://github.com/yunjunz/PySAR.git ;
+git clone https://github.com/falkamelung/geodmod.git ;
 cd -;
-make PYKML;
-echo DONE WITH CRITICAL CODE;
+make PYKML ;
+echo DONE WITH CRITICAL CODE ;
 
 make INSARMAPS;
 cd sources;
-git clone https://github.com/geodesymiami/rsmas_tools.git; 
+git clone https://github.com/geodesymiami/rsmas_tools.git ; 
 cd -;
 echo DONE;
 ```
@@ -70,7 +70,7 @@ The rsmas_tools clone gives you the python scripts plus notebooks from other gro
 
 ```
 cd $WORKDIR;
-git clone https://github.com/geodesymiami/rsmas_infiles.git; 
+git clone https://github.com/geodesymiami/rsmas_infiles.git ; 
 echo DONE;
 ```
 
