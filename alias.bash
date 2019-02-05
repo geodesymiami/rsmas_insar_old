@@ -22,7 +22,14 @@ alias cdr='cd ${PARENTDIR}'
 alias cdrs='cd ${INT_SCR}'
 alias cdrsa='cd ${PARENTDIR}/samples'
 alias cdri='cd ${PARENTDIR}/sources/rsmas_isce'
-alias VDMSCRATCH='cd ${PARENTDIR}; source default.bash; source custom.bash; cd -; export SCRATCHDIR=/scratch/projects/vdm/$USER;  echo "SCRATCHDIR:   "${SCRATCHDIR}'
+alias cdrt='cd ${PARENTDIR}/sources/rsmas_tools'
+alias cdrts='cd ${PARENTDIR}/sources/rsmas_tools/SAR'
+alias cdrtg='cd ${PARENTDIR}/sources/rsmas_tools/GPS'
+alias cdrtn='cd ${PARENTDIR}/sources/rsmas_tools/notebooks'
+alias cdrtm='cd ${PARENTDIR}/sources/rsmas_tools/matlab'
+alias cdrtmf='cd ${PARENTDIR}/sources/rsmas_tools/matlab/falk'
+alias cdss='cd ${PARENTDIR}/3rdparty/sentinelstack/sentinelstack'
+alias VDMSCRATCH='cd ${PARENTDIR}; source default.bash; source custom.bash; cd -; export SCRATCHDIR=/scratch/projects/vdm/${USER};  echo "SCRATCHDIR:   "${SCRATCHDIR}'
 alias INSARLABSCRATCH='cd ${PARENTDIR}; source default.bash; source custom.bash; cd -; export SCRATCHDIR=/scratch/projects/insarlab/famelung;  echo "SCRATCHDIR:   "${SCRATCHDIR}'
 alias TESTBENCH='export SCRATCHDIR=${SCRATCHDIR}/TESTBENCH;  echo "SCRATCHDIR:   "${SCRATCHDIR}'
 alias TESTBENCH1='export SCRATCHDIR=${SCRATCHDIR}/TESTBENCH1; echo "SCRATCHDIR:   "${SCRATCHDIR}'
@@ -52,7 +59,11 @@ alias rmt3='cd ${PARENTDIR}; source default.bash; source custom.bash; echo "Remo
 ######################################
 alias cdp='cd ${PYSAR_HOME}/pysar'
 alias cdP='cd ${PARENTDIR}/sources/PySAR'
+alias cppp='cp ${PYSAR_HOME}/sh/plot_pysarApp.sh .'
 alias mailkmz='echo " " | mail -a *.kmz -s PySAR_kmz_file ${NOTIFICATIONEMAIL} ; echo "kmz file sent to <${NOTIFICATIONEMAIL}>"'
+function mailfile() { echo " " | mail -a *"$1"* -s mailing_files ${NOTIFICATIONEMAIL} ; echo "file sent to <${NOTIFICATIONEMAIL}>" ; }
+function mailfile() { echo " " | mail -a "$1" -s mailing_files ${NOTIFICATIONEMAIL} ; echo "file sent to <${NOTIFICATIONEMAIL}>" ; }
+alias mailcoherence='echo " " | mail -a coherence{_1,_2,_3,_4}* -s coherence_files ${NOTIFICATIONEMAIL} ; echo "coherence file sent to <${NOTIFICATIONEMAIL}>"'
 alias mailssarakml='echo " " | mail -a *.kml -s ssara_kml_file ${NOTIFICATIONEMAIL} ; echo "kml file sent to <${NOTIFICATIONEMAIL}>"'
 ######################################
 ###### insarmaps #####################
@@ -63,8 +74,8 @@ alias insarmapsremove='json_mbtiles2insarmaps.py -u insaradmin -p Insar123 --hos
 ######################################
 alias cdg='cd ${GEODMODHOME}'
 alias cdm='cd ${GEODMOD_WORKDIR}'
-alias cdgs='cd ${GEODMODHOME}/example'
-alias cdge='cd ${GEODMODHOME}/example'
+alias cdgs='cd ${GEODMODHOME}/examples'
+alias cdge='cd ${GEODMODHOME}/examples'
 alias cdgp='cd ${GEODMODHOME}/preparelib'
 alias cdgm='cd ${GEODMODHOME}/masterfile'
 alias cdgu='cd ${GEODMODHOME}/utillib'
@@ -81,6 +92,7 @@ alias gitpp='cdp; git pull; cd -'
 ######################################
 alias bsubi='bsub -q interactive -P insarlab -Is -XF /bin/bash'
 alias bsubi4='bsub -q interactive -P insarlab -Is -n4 -R "span[hosts=1]" -XF /bin/bash'
+alias bsubgeocode='bsub < ${PARENTDIR}/sources/rsmas_tools/notebooks/falk/geocode.job'
 alias killcreateBatch='kill -9 `ps uax | grep famelung | grep createBatch | awk '\''{printf $2 " "}'\''`'
 alias killperl='kill -9 `ps uax | grep famelung | grep perl | awk '\''{printf $2 " "}'\''`'
 alias killpython='kill -9 `ps uax | grep famelung | grep python | awk '\''{printf $2 " "}'\''`'
@@ -95,8 +107,14 @@ alias bjobssum='bjobs | grep RUN | wc -l | awk '\''{print "Running jobs:",$1}'\'
 ######################################
 alias pegasus='ssh -YC pegasus.ccs.miami.edu'
 alias visx='ssh -YC pegasus.ccs.miami.edu'
-alias demeter='ssh -YC demeter.ccs.miami.edu'
+alias pegasusdavid='ssh -YC dwg11@pegasus.ccs.miami.edu'
+alias pegasuslily='ssh -YC lbw14@pegasus.ccs.miami.edu'
+alias pegasusjosh='ssh -YC jaz101@pegasus.ccs.miami.edu'
+alias sanghoon='ssh -YC -o ServerAliveInterval=60 -p 7777 164.125.92.239'
+function scpsanghoon() { scp -P 7777 "$1" 164.125.92.239: ; }
+alias visx='ssh -YC visx.ccs.miami.edu'
 alias sshtunnel='ssh -N -f -L 2123:fembot1.rsmas.miami.edu:22 olympus.rsmas.miami.edu; ssh -YC -p 2123 localhost'
+alias sshjupyter='ssh -N -L 8888:10.141.226.234:8888 pegasus.ccs.miami.edu'
 ######################################
 ######## general #####################
 ######################################
@@ -164,6 +182,7 @@ function lstdg2() { /bin/ls -Flrt | grep \/ | grep "$1" | grep "$2" | awk '{prin
 function lst1() { ls -tro "$@" | tail -2 ; }
 function lstttt() { ls -tro --full-time "$@" | tail -100 ; }
 alias lsrun='ls run_*_*{master,baseline,overlaps,resample,misreg,region,igram,coherence,slc,unwrap}'
+alias catrun='head 10 run_*_*{master,baseline,overlaps,resample,misreg,region,igram,coherence,slc,unwrap}'
 alias lss='ll | sort -n -k 5 | tail -20'
 alias lsss='ls -s | sort -n | tail -50'
 alias dum1='du --max-depth=1 --block-size=1G -h | sort -n'
@@ -193,9 +212,9 @@ alias cleanvu7='find /scratch/projects/vdm/${USER} -type f -mtime +7 -exec rm -f
 alias cleanvu5='find /scratch/projects/vdm/${USER} -type f -mtime +5 -exec rm -f {} \;'     # 
 alias cleanvu3='find /scratch/projects/vdm/${USER} -type f -mtime +3 -exec rm -f {} \;'     # 
 alias cleanvu1='find /scratch/projects/vdm/${USER} -type f -mtime +1 -exec rm -f {} \;'     # 
-alias display='${IMAGEMAGICK_BIN}/display'   
+alias display='/usr/bin/display'   
 alias killperl='kill -9             `ps uax |  grep perl   |  awk '\''{printf                            $2 " "}'\''`'
-############ FOR PySAR SOFTWARE  ########
-alias pysarold='export PYSAR_HOME=${PARENTDIR}/sources/old/PySAR; export PYTHONPATH=${PYSAR_HOME}; export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/shellscripts'
+############ python tools  ########
+alias pylint='pylint --max-line-length=240'
 ############################
 PS1='//\h${PWD}[\!] '
