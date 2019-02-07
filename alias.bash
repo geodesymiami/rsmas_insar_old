@@ -5,7 +5,7 @@ echo "sourcing ${PWD}/alias.bash ..."
 # skip remaining setup if not an interactive shell
 if [ -z "${USER}" ] || [ -z "${PS1}" ]
 then
-    exit
+    return
 fi
 ######################################
 ###### scheduler #####################
