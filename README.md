@@ -38,6 +38,7 @@ cd rsmas_insar;
 source default_isce22.conf;
 ./install_miniconda3.csh;
 rehash;
+hash - r;
 ./download_ssara_tippecanoe_3rdparty.sh;
 
 git clone https://github.com/geodesymiami/accounts ;
