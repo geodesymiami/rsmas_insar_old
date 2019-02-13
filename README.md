@@ -65,6 +65,37 @@ echo DONE;
 
 You are done. 
 
+# BEGIN: For bash:
+```
+git clone https://github.com/geodesymiami/rsmas_insar.git ;
+cd rsmas_insar;
+source default_isce22.bash;
+./install_miniconda3.csh;
+hash - r;
+./download_ssara_tippecanoe_3rdparty.sh;
+
+git clone https://github.com/geodesymiami/accounts ;
+
+./install_credential_files.csh;
+./download_isce.py
+./install_isce22.csh;
+./accounts.csh;
+mkdir sources;
+cd sources;
+git clone https://github.com/geodesymiami/rsmas_isce.git ; 
+git clone https://github.com/yunjunz/PySAR.git ;
+git clone https://github.com/falkamelung/geodmod.git ;
+cd -;
+make PYKML ;
+echo DONE WITH CRITICAL CODE ;
+
+make INSARMAPS;
+cd sources;
+git clone https://github.com/geodesymiami/rsmas_tools.git ; 
+cd -;
+echo DONE;
+```
+# END: For bash:
 The rsmas_tools clone gives you the python scripts plus notebooks from other group members. Put all your code into these directories and occasionaly push to github so that they will be available to others. We also share all other input files through github:
 
 * The rsmas_infiles is optional:
