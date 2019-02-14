@@ -27,7 +27,7 @@ export INT_SCR=${PARENTDIR}/sources/roipac/INT_SCR
 
 ############ Standard directories ###########
 export DEMDIR=${WORKDIR}/DEMDIR
-export TEMPLATEDIR=${WORKDIR}/TEMPLATEDIR
+export TEMPLATES=${WORKDIR}/infiles/${USER}
 export JOBDIR=${WORKDIR}/JOBS
 export GEODMOD_WORKDIR=${WORKDIR}/MINDIR
 
@@ -79,8 +79,11 @@ export PYTHONPATH=${PYTHONPATH-""}
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
 export PYTHONPATH=${PYTHONPATH}:${ISCEHOME}:${PYTHON3DIR}/lib/python3.6/site-packages
+export PYTHONPATH ${PYTHONPATH}:${SQUEESAR}
+export PYTHONPATH ${PYTHONPATH}:${RSMAS_ISCE}
+export PYTHONPATH ${PYTHONPATH}:${RSMAS_TOOLS}
+export PYTHONPATH ${PYTHONPATH}:${SENTINEL_STACK}
 export PYTHONPATH_RSMAS=${PYTHONPATH}
-
 export PROJ_LIB=${PARENTDIR}/miniconda3/share/proj
 
 ############ Set other paths  #########
