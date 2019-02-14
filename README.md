@@ -35,13 +35,12 @@ cd ~/test/test1
 ```
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
+git clone https://github.com/geodesymiami/accounts ;
 source default_isce22.conf;
 ./install_miniconda3.csh;
 rehash;
-hash - r;
 ./download_ssara_tippecanoe_3rdparty.sh;
 
-git clone https://github.com/geodesymiami/accounts ;
 
 ./install_credential_files.csh;
 ./download_isce.py
