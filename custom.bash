@@ -16,8 +16,8 @@ then
   export SCRATCHDIR=/scratch/insarlab/${USER}
   export TESTDATA_ISCE=/home/famelung/insarlab/TESTDATA_ISCE
   export AUXDATA_ISCE=/home/famelung/insarlab
-  export SENTINEL_ORBITS=/home/famelung/S1orbits
-  export SENTINEL_AUX=/home/famelung/S1aux
+  export SENTINEL_ORBITS=${WORKDIR}/S1orbits
+  export SENTINEL_AUX=${WORKDIR}/S1aux
   export JOBSCHEDULER=PBS
   export QUEUENAME=batch
 fi
