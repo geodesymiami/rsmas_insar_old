@@ -97,15 +97,20 @@ echo DONE;
 # END: For bash:
 The rsmas_tools clone gives you the python scripts plus notebooks from other group members. Put all your code into these directories and occasionaly push to github so that they will be available to others. We also share all other input files through github:
 
-* The rsmas_infiles is optional:
+* The infiles is optional:
 
 ```
 cd $WORKDIR;
-git clone https://github.com/geodesymiami/rsmas_infiles.git ; 
+mkdir -p infiles
+git clone https://github.com/geodesymiami/infiles_famelung.git famelung; 
+git clone https://github.com/geodesymiami/infiles_sxh733.git sxh733; 
+git clone https://github.com/geodesymiami/infiles_yzhang1.git yzhang1 ; 
+git clone https://github.com/geodesymiami/infiles_bkv3.git bkv3;
+git clone https://github.com/geodesymiami/infiles_lvxr.git lvxr;
 echo DONE;
 ```
 
-If you keep your *template files in this default location (e.g. /nethome/famelung/insarlab/rsmas_infiles/famelung/TEMPLATEDIR) they will be available to others. We also would like to share other input files (geodmod, coulomb, comsol through this directory).
+If you keep your *template files in this default location (e.g. /nethome/famelung/insarlab/infiles/famelung/TEMPLATES) they will be available to others. We also would like to share other input files (geodmod, coulomb, comsol through this directory).
 
 ### Orbits and aux files
 You need to specify a directory for the orbits for Sentinel-1 (`$SENTINEL_ORBITS`). You can say `setenv SENTINEL_ORBITS ./orbits`  but it would download the orbits again and again.  It is unclear what the aux files do (`SENTINEL_AUX`)
