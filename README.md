@@ -105,6 +105,7 @@ mkdir -p infiles;
 cd infiles;
 git clone https://github.com/geodesymiami/infiles_famelung.git famelung; 
 git clone https://github.com/geodesymiami/infiles_sxh733.git sxh733; 
+git clone https://github.com/geodesymiami/infiles_sxm1611.git sxm1611;
 git clone https://github.com/geodesymiami/infiles_yzhang1.git yzhang1 ; 
 git clone https://github.com/geodesymiami/infiles_bkv3.git bkv3;
 git clone https://github.com/geodesymiami/infiles_lvxr.git lvxr;
