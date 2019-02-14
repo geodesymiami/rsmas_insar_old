@@ -101,7 +101,8 @@ The rsmas_tools clone gives you the python scripts plus notebooks from other gro
 
 ```
 cd $WORKDIR;
-mkdir -p infiles
+mkdir -p infiles;
+cd infiles;
 git clone https://github.com/geodesymiami/infiles_famelung.git famelung; 
 git clone https://github.com/geodesymiami/infiles_sxh733.git sxh733; 
 git clone https://github.com/geodesymiami/infiles_yzhang1.git yzhang1 ; 
