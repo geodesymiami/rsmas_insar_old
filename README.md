@@ -25,8 +25,16 @@ alias s.bgood='s.btest1'
 alias s.btest1='cd  ~/test/test1/rsmas_insar; source default_isce22.bash; source platforms.bash; source alias.bash; source custom.bash; cd -;'
 
 export HISTSIZE=1000
-
 ```
+
+and in your .bash_profile file:
+```
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+```
+
 (The modules commands are only required for the pegasus system at RSMAS. The umask command gives others access to your files: everybody should be able to read/write in your scratch directory whereas nobody should be able to write in your home directory, but it is unclear whether this always works. s.cgood allows you to switch between different versions). 
 
 * Go to the area where you want to install the code (e.g. ~/test/test1).
