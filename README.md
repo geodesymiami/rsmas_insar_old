@@ -23,7 +23,6 @@ hash - r;
 ./download_ssara_tippecanoe_3rdparty.sh;
 ./download_isce.py
 ./install_isce22.csh;
-./accounts.csh;
 mkdir sources;
 cd sources;
 git clone https://github.com/geodesymiami/rsmas_isce.git ; 
