@@ -1,25 +1,30 @@
 # rsmas_insar
 How to install RSMAS InSAR code.
 
-* Use bash shell ([for tcsh see here.](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/readme_old_tcsh) 
-* Copy and paste the following into your .cshrc file:
+* Use bash shell ([see here for tcsh.)](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/readme_old_tcsh) 
+* Copy and paste the following into your .bashrc file:
 
 ```
-if ($?tcsh) then
-  set modules_shell="tcsh"
-else 
-  set modules_shell="csh" 
-endif
-module purge 
+# .bashrc
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+shopt -s expand_aliases
+
+modules_shell="bash"
+umask 002
+
+module purge
 module load share-rpms65
-umask 002 
 
-if $?PARENTDIR then 
-   setenv PYTHONPATH ${PYTHONPATH_RSMAS}
-endif 
+if  [ -n ${PARENTDIR} ] 
+then
+   export PYTHONPATH=${PYTHONPATH_RSMAS}
+fi
+alias s.bgood='s.btest1'
+alias s.btest1='cd  ~/test/test1/rsmas_insar; source default_isce22.bash; source platforms.bash; source alias.bash; source custom.bash; cd -;'
 
-alias s.cgood   's.ctest1';
-alias s.ctest1  'cd ~/test/test1/rsmas_insar; source default_isce22.conf; source alias.conf; source custom.conf; cd -;' 
+export HISTSIZE=1000
 
 ```
 (The modules commands are only required for the pegasus system at RSMAS. The umask command gives others access to your files: everybody should be able to read/write in your scratch directory whereas nobody should be able to write in your home directory, but it is unclear whether this always works. s.cgood allows you to switch between different versions). 
@@ -32,39 +37,6 @@ cd ~/test/test1
 
 * Install the code using the commands below (you need a reasonable recent git version (the default on pegasus is too old, get a [local version](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/install_git.md), or use an old rsmas_insar version). Installation takes about 10 minutes.
 
-```
-git clone https://github.com/geodesymiami/rsmas_insar.git ;
-cd rsmas_insar;
-git clone https://github.com/geodesymiami/accounts ;
-source default_isce22.conf;
-./install_miniconda3.csh;
-rehash;
-./download_ssara_tippecanoe_3rdparty.sh;
-
-
-./install_credential_files.csh;
-./download_isce.py
-./install_isce22.csh;
-./accounts.csh;
-mkdir sources;
-cd sources;
-git clone https://github.com/geodesymiami/rsmas_isce.git ; 
-git clone https://github.com/yunjunz/PySAR.git ;
-git clone https://github.com/falkamelung/geodmod.git ;
-cd -;
-make PYKML ;
-echo DONE WITH CRITICAL CODE ;
-
-make INSARMAPS;
-cd sources;
-git clone https://github.com/geodesymiami/rsmas_tools.git ; 
-cd -;
-echo DONE;
-```
-
-You are done. 
-
-# BEGIN: For bash:
 ```
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
@@ -94,7 +66,7 @@ git clone https://github.com/geodesymiami/rsmas_tools.git ;
 cd -;
 echo DONE;
 ```
-# END: For bash:
+
 The rsmas_tools clone gives you the python scripts plus notebooks from other group members. Put all your code into these directories and occasionaly push to github so that they will be available to others. We also share all other input files through github:
 
 * The infiles is optional:
