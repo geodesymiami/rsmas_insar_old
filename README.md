@@ -1,7 +1,7 @@
 # rsmas_insar
 How to install RSMAS InSAR code.
 
-* Work in tsch shell. 
+* Use bash shell ([for tcsh see here.](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/readme_old_tcsh) 
 * Copy and paste the following into your .cshrc file:
 
 ```
