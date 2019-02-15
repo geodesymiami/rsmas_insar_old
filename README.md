@@ -22,8 +22,8 @@ git clone https://github.com/geodesymiami/accounts ;
 source default_isce22.bash;
 ./install_miniconda3.csh;
 hash - r;
-./install_credential_files.csh;
 ./download_ssara_tippecanoe_3rdparty.sh;
+./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
 mkdir sources;
