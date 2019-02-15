@@ -2,7 +2,7 @@
 How to install RSMAS InSAR code.
 
 * Use bash shell ([see here for tcsh.)](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/readme_old_tcsh) 
-* You need [.bashrc](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/bashrc_contents.md) and [.bash_profile](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/bash_profile.md)
+* Your [.bashrc](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/bashrc_contents.md) and [.bash_profile](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/bash_profile.md)
 
 * Go to the area where you want to install the code (e.g. ~/test/test1).
 
