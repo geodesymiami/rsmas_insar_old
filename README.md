@@ -10,19 +10,17 @@ How to install RSMAS InSAR code.
 cd ~/test/test1
 ```
 
-* Install the code using the commands below (you need a reasonable recent git version (the default on pegasus is too old, get a [local version](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/install_git.md), or use an old rsmas_insar version). Installation takes about 10 minutes.
+* Install the code using the commands below (you need a reasonable recent git version (the default on pegasus is too old, get a [local version](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/install_git.md), or use an old rsmas_insar version). Installation takes about 10 minutes. See [here](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/accounts_info.md) for the contents of the accounts repository if you don't have access.
 
 ```
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
 source default_isce22.bash;
+git clone https://github.com/geodesymiami/accounts ;
+./install_credential_files.csh;
 ./install_miniconda3.csh;
 hash - r;
 ./download_ssara_tippecanoe_3rdparty.sh;
-
-git clone https://github.com/geodesymiami/accounts ;
-
-./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
 ./accounts.csh;
