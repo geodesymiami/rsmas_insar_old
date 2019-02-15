@@ -19,9 +19,9 @@ git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
 source default_isce22.bash;
 git clone https://github.com/geodesymiami/accounts ;
-./install_credential_files.csh;
 ./install_miniconda3.csh;
 hash - r;
+./install_credential_files.csh;
 ./download_ssara_tippecanoe_3rdparty.sh;
 ./download_isce.py
 ./install_isce22.csh;
