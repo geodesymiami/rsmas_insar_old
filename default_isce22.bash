@@ -27,7 +27,7 @@ export INT_SCR=${PARENTDIR}/sources/roipac/INT_SCR
 
 ############ Standard directories ###########
 export DEMDIR=${WORKDIR}/DEMDIR
-export TEMPLATES=${WORKDIR}/infiles/${USER}
+export TEMPLATES=${WORKDIR}/infiles/${USER}/TEMPLATES
 export JOBDIR=${WORKDIR}/JOBS
 export GEODMOD_WORKDIR=${WORKDIR}/MINDIR
 
