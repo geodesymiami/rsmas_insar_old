@@ -32,7 +32,7 @@ export JOBDIR=${WORKDIR}/JOBS
 export GEODMOD_WORKDIR=${WORKDIR}/MINDIR
 
 export SAMPLESDIR=${PARENTDIR}/samples
-export TE=${TEMPLATEDIR}
+export TE=${TEMPLATES}
 export OPERATIONS=${HOME}/insarlab/OPERATIONS
 
 ############## GEODMOD ###############
