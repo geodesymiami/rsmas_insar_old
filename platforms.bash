@@ -7,7 +7,7 @@ then
   export QUEUENAME=general
   export SCRATCHDIR=/projects/scratch/insarlab/${USER}
   export TESTDATA_ISCE=/nethome/dwg11/insarlab/TESTDATA_ISCE
-  export DOWNLOADHOST=pegasus.ccs.miami.edu
+  export DOWNLOADHOST=visx.ccs.miami.edu
   export SENTINEL_ORBITS=/nethome/swdowinski/S1orbits
   export SENTINEL_AUX=/nethome/swdowinski/S1aux
   export TESTDATADIR=visx.ccs.miami.edu:/famelung/famelung/testdata
