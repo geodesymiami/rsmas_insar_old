@@ -1,4 +1,9 @@
 #!/bin/csh -v
+# Script for ISCE installation. Requires $PARENTDIR, $ISCEHOME,  $PYTHON3DIR
+
+setenv ISCEDOWNLOADFILE ${PARENTDIR}/3rdparty/isce/isce-2.2.0.tar.bz2
+setenv SCONS_CONFIG_DIR ${PARENTDIR}/3rdparty/isce/isce-2.2.0
+
 ########################################################
 echo "Create SConfigISCE file  ..."
 ########################################################

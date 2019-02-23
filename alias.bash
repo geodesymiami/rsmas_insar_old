@@ -145,7 +145,7 @@ alias v.g='vi ~/.gmtdefaults'
 alias printpdb='echo import pdb\; pdb.set_trace\(\)'
 alias sortrms='sort -k2,2 -nr'
 function cdd() { old=${cwd} ; cd "$@" ; } 
-alias back='back=${old}; old=${cwd}; cd ${back}; unset back; pwd'
+alias back='cd -'
 function awkf() { gawk -f ${HOME_PROG}/awks/"$@" ; }
 alias m=more
 function makeolder() { touch -r "$2" "$1" ; }

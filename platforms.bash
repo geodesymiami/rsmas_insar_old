@@ -13,7 +13,8 @@ then
   export TESTDATADIR=visx.ccs.miami.edu:/famelung/famelung/testdata
   export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/LIN
   export MATLABHOME=/share/opt/MATLAB/R2014b
-  export MATLAB_BIN=${MATLABHOME}/bin
+
+  export PATH=${PATH}:${MATLABHOME}/bin:${MAKEDEM_BIN}
 fi
 ###############################################
 if [[ ${HOST} == eos ]]
