@@ -33,6 +33,7 @@ git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
 cd -;
 make PYKML ;
+mkdir -p ~/insarlab/OPERATIONS/LOGS
 echo DONE WITH CRITICAL CODE ;
 
 make INSARMAPS;
