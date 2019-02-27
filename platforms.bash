@@ -31,3 +31,9 @@ then
   export SCRATCHDIR=/data/DATADIR/testdata
 fi
 ###############################################
+if [[ ${HOST} == pgftsunami ]]
+then
+  export JOBSCHEDULER=PBS
+  export QUEUENAME=batch
+  export SCRATCHDIR=/data1/Projects/insar
+fi
