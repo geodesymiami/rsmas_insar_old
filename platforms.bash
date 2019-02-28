@@ -35,6 +35,6 @@ if [[ ${HOST} == pgftsunami ]]
 then
   export JOBSCHEDULER=PBS
   export QUEUENAME=batch
-  export SCRATCHDIR=/data1/Projects/insar
+  export SCRATCHDIR=/data1/Projects/insar/data
   export TESTDATA_ISCE=/data1/Projects/insar/data/TESTDATA_ISCE
 fi
