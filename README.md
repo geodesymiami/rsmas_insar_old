@@ -40,6 +40,8 @@ make INSARMAPS;
 cd sources;
 git clone https://github.com/geodesymiami/rsmas_tools.git ; 
 cd -;
+mkdir -p $SENTINEL_ORBITS;
+mkdir -p $SENTINEL_AUX;
 echo DONE;
 ```
 
