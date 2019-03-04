@@ -28,7 +28,10 @@ if [[ ${HOST} == centos7.bogon105.com ]]
 then
   export JOBSCHEDULER=PBS
   export QUEUENAME=batch
-  export SCRATCHDIR=/data/DATADIR/testdata
+  export SCRATCHDIR=/data/rsmasdata/famelung/SCRATCHDIR
+  export TESTDATA_ISCE=/data/rsmasdata/famelung/TESTDATA_ISCE
+  export SENTINEL_ORBITS=/home/famelung/insarlab/S1orbits
+  export SENTINEL_AUX=/home/famelung/insarlab/S1aux
 fi
 ###############################################
 if [[ ${HOST} == pgftsunami ]]
