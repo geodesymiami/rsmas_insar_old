@@ -17,7 +17,7 @@ alias git='~/local_git/miniconda3/bin/git'
 
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 source default_isce22.bash;
-cd rsmas_insar/install;
+cd rsmas_insar/docs;
 git clone https://github.com/geodesymiami/accounts ;
 ./install_miniconda3.csh;
 hash -r;
@@ -25,6 +25,7 @@ hash -r;
 ./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
+cd .. ;
 mkdir sources;
 cd sources;
 git clone https://github.com/geodesymiami/rsmas_isce.git ; 
