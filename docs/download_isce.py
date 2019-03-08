@@ -9,7 +9,7 @@ import os
 import sys
 import subprocess
 
-sys.path.insert(0, os.getenv('PARENTDIR') + '/accounts')
+sys.path.insert(0, os.getenv('PARENTDIR') + '/docs/accounts')
 import password_config as password
 
 def main():

@@ -33,7 +33,7 @@ mkdir -p $SCONS_CONFIG_DIR
 tar xjf $ISCEDOWNLOADFILE -C ${SCONS_CONFIG_DIR}/..
 cd $SCONS_CONFIG_DIR
 rm -rf .sconf_temp/ .sconsign.dblite config.log 
-cp $PARENTDIR/SConfigISCE .
+cp $PARENTDIR/docs/SConfigISCE .
 scons install SConfigISCE
 cp -r $SCONS_CONFIG_DIR/contrib/stack/topsStack $PARENTDIR/3rdparty/sentinelstack
 cp -r $SCONS_CONFIG_DIR/contrib/stack/stripmapStack $PARENTDIR/3rdparty/sentinelstack

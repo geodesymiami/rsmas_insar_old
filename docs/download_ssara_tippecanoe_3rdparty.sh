@@ -1,8 +1,8 @@
 #!/bin/csh -v
 # downloads all necessary 3rdparty codes
 
-mkdir -p 3rdparty; 
-cd 3rdparty;
+mkdir -p ../3rdparty; 
+cd ../3rdparty;
 
 #### SSARA ######;
 echo "downloading ssara ...  "
