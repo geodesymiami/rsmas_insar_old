@@ -100,7 +100,7 @@ total 17528848
 drwxrws-w-+ 2 famelung insarlab       4096 Jan 17 16:58 test
 //login4/nethome/dwg11/insarlab/TESTDATA_ISCE[59]
 ```
-* For possible problems, check [here](https://github.com/geodesymiami/rsmas_insar/blob/master/docs/installation_issues.md).
+* For possible problems, check [here](https://github.com/geodesymiami/rsmas_insar/blob/master/setup/installation_issues.md).
 
 * We still use tcsh. We plan to upgrade to bash asap.
 
