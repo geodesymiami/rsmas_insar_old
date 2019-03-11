@@ -18,7 +18,7 @@ alias git='~/local_git/miniconda3/bin/git'
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
 source default_isce22.bash;
-cd docs;
+cd setup;
 git clone https://github.com/geodesymiami/accounts ;
 ./install_miniconda3.csh;
 hash -r;
@@ -34,7 +34,7 @@ git clone https://github.com/geodesymiami/rsmas_isce.git ;
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
 cd -;
-cd docs;
+cd setup;
 make PYKML ;
 mkdir -p ~/insarlab/OPERATIONS/LOGS
 echo DONE WITH CRITICAL CODE ;
