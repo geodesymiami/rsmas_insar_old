@@ -30,7 +30,7 @@ def main():
     if proc.returncode is not 0:
         raise Exception('ERROR downloading isce')
 
-    sentinelstack_dir = os.getenv('PARENTDIR') + '/source/sentinelstack'
+    sentinelstack_dir = os.getenv('PARENTDIR') + '/sources/sentinelstack'
 
     if not os.path.isdir(sentinelstack_dir):
         os.makedirs(sentinelstack_dir)
