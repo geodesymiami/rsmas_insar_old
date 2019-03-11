@@ -9,7 +9,7 @@ import os
 import sys
 import subprocess
 
-sys.path.insert(0, os.getenv('PARENTDIR') + '/docs/accounts')
+sys.path.insert(0, os.getenv('PARENTDIR') + '/setup/accounts')
 import password_config as password
 
 def main():
@@ -30,7 +30,7 @@ def main():
     if proc.returncode is not 0:
         raise Exception('ERROR downloading isce')
 
-    sentinelstack_dir = os.getenv('PARENTDIR') + '/3rdparty/sentinelstack'
+    sentinelstack_dir = os.getenv('PARENTDIR') + '/source/sentinelstack'
 
     if not os.path.isdir(sentinelstack_dir):
         os.makedirs(sentinelstack_dir)
