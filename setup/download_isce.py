@@ -30,11 +30,11 @@ def main():
     if proc.returncode is not 0:
         raise Exception('ERROR downloading isce')
 
-    sentinelstack_dir = os.getenv('PARENTDIR') + '/sources/sentinelstack'
+    iscestack_dir = os.getenv('PARENTDIR') + '/sources/isceStack'
 
-    if not os.path.isdir(sentinelstack_dir):
-        os.makedirs(sentinelstack_dir)
-    os.chdir(sentinelstack_dir)
+    if not os.path.isdir(iscestack_dir):
+        os.makedirs(iscestack_dir)
+    os.chdir(iscestack_dir)
 
     command = ['svn co', '--username ' + password.earthdefuser, '--password ' + password.earthdefpass, 'http://earthdef.caltech.edu/svn/sentinelstack', '--non-interactive']
     print("downloading sentinelStack (via svn checkout) ...")
