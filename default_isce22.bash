@@ -42,9 +42,9 @@ export PYSAR_HOME=${PARENTDIR}/sources/PySAR
 export SQUEESAR=${PARENTDIR}/sources/pysqsar
 
 ##############  PYTHON  ##############
-export PYTHON3DIR=${PARENTDIR}/miniconda3
-export CONDA_ENVS_PATH=${PARENTDIR}/miniconda3/envs
-export CONDA_PREFIX=${PARENTDIR}/miniconda3
+export PYTHON3DIR=${PARENTDIR}/3rdparty/miniconda3
+export CONDA_ENVS_PATH=${PARENTDIR}/3rdparty/miniconda3/envs
+export CONDA_PREFIX=${PARENTDIR}/3rdparty/miniconda3
 export PROJ_LIB=${CONDA_PREFIX}/share/proj
 export GDAL_DATA=${PYTHON3DIR}/share/gdal
 
@@ -57,7 +57,7 @@ export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/insar
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_tools
 export PYTHONPATH=${PYTHONPATH}:${ISCE_STACK}
 export PYTHONPATH_RSMAS=${PYTHONPATH}
-export PROJ_LIB=${PARENTDIR}/miniconda3/share/proj
+export PROJ_LIB=${PARENTDIR}/3rdparty/miniconda3/share/proj
 
 #####################################
 ############ Set paths ##############
