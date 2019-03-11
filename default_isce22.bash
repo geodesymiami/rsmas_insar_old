@@ -32,10 +32,12 @@ export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/L
 ############ FOR PROCESSDING  #########
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA
 export SSARA_ASF=${PARENTDIR}/sources/ssara_ASF
-export ISCEHOME=${PARENTDIR}/3rdparty/isce/ISCE
+export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE
 #export SENTINEL_STACK=${PARENTDIR}/3rdparty/isce/isce-2.2.0/contrib/stack/topsStack/
-export SENTINEL_STACK=${PARENTDIR}/3rdparty/sentinelstack/sentinelstack
-export SENTINEL_STACK_MODIFIED=${PARENTDIR}/sources/sentinelstack_modified
+#export SENTINEL_STACK=${PARENTDIR}/3rdparty/sentinelstack/sentinelstack
+export ISCE_STACK=${PARENTDIR}/sources/isce2/topsStack
+#export ISCE_STACK=${PARENTDIR}/sources/isce2/stripmaptack
+#export ISCE_RSMAS=${PARENTDIR}/sources/isce_rsmas
 export PYSAR_HOME=${PARENTDIR}/sources/PySAR
 export SQUEESAR=${PARENTDIR}/sources/pysqsar
 
@@ -49,11 +51,11 @@ export GDAL_DATA=${PYTHON3DIR}/share/gdal
 export PYTHONPATH=${PYTHONPATH-""}
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
-export PYTHONPATH=${PYTHONPATH}:${ISCEHOME}:${PYTHON3DIR}/lib/python3.6/site-packages
+export PYTHONPATH=${PYTHONPATH}:${ISCE_HOME}:${PYTHON3DIR}/lib/python3.6/site-packages
 export PYTHONPATH=${PYTHONPATH}:${SQUEESAR}
-export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_isce
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/insar
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_tools
-export PYTHONPATH=${PYTHONPATH}:${SENTINEL_STACK}
+export PYTHONPATH=${PYTHONPATH}:${ISCE_STACK}
 export PYTHONPATH_RSMAS=${PYTHONPATH}
 export PROJ_LIB=${PARENTDIR}/miniconda3/share/proj
 
@@ -62,10 +64,10 @@ export PROJ_LIB=${PARENTDIR}/miniconda3/share/proj
 #####################################
 export PATH=${PATH}:${SSARAHOME}
 export PATH=${PATH}:${SSARA_ASF}
-export PATH=${PATH}:${INT_SCR}:${SQUEESAR}:${SQUEESAR}/gamma
-export PATH=${PATH}:${PARENTDIR}/sources/rsmas_isce
+export PATH=${PATH}:${SQUEESAR}
+export PATH=${PATH}:${PARENTDIR}/insar
 export PATH=${PATH}:${PARENTDIR}/sources/rsmas_tools/SAR:${PARENTDIR}/sources/rsmas_tools/GPS:${PARENTDIR}/sources/rsmas_tools/notebooks
-export PATH=${ISCEHOME}/isce/applications:${ISCEHOME}/isce/bin:${SENTINEL_STACK_MODIFIED}:${SENTINEL_STACK}:${PATH}
+export PATH=${ISCE_HOME}/isce/applications:${ISC_EHOME}/isce/bin:${ISCE_RSMAS}:${ISCE_STACK}:${PATH}
 export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/sh
 export PATH=${PYTHON3DIR}/bin:${PATH}
 export PATH=${PATH}:${PROJ_LIB} 
