@@ -25,10 +25,10 @@ X11INCPATH = /usr/include/X11
 ENABLE_CUDA = False
 EOF
 ########################################################
-echo "Install isce in $ISCEHOME  ..."
+echo "Install isce in $ISCE_HOME  ..."
 ########################################################
 test -d $SCONS_CONFIG_DIR && rm -r $SCONS_CONFIG_DIR
-test -d $ISCEHOME && rm -r $ISCEHOME
+test -d $ISCE_HOME && rm -r $ISCE_HOME
 mkdir -p $SCONS_CONFIG_DIR
 tar xjf $ISCEDOWNLOADFILE -C ${SCONS_CONFIG_DIR}/..
 cd $SCONS_CONFIG_DIR
