@@ -30,7 +30,6 @@ cd .. ;
 mkdir sources;
 cd sources;
 
-git clone https://github.com/geodesymiami/rsmas_isce.git ; 
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
 cd -;
