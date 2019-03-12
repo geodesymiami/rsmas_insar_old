@@ -121,11 +121,10 @@ class config(object):
         
     def finalize(self):
         self.f.close()
-        
-   
+
 ################################################
 
-class run(object):
+class pre_run(object):
     """
        A class representing a run which may contain several functions
     """
@@ -134,14 +133,51 @@ class run(object):
     def configure(self, inps, runName):
         for k in inps.__dict__.keys():
             setattr(self, k, inps.__dict__[k])
-        self.runDir = os.path.join(self.work_dir, 'run_files_SQ')
+        self.runDir = os.path.join(self.work_dir, 'pre_run_files')
         if not os.path.exists(self.runDir):
             os.makedirs(self.runDir)
 
         self.run_outname = os.path.join(self.runDir, runName)
         print ('writing ', self.run_outname)
 
-        self.config_path = os.path.join(self.work_dir,'configs_SQ')
+        #self.config_path = os.path.join(self.work_dir,'pre_configs')
+        #if not os.path.exists(self.config_path):
+        #    os.makedirs(self.config_path)
+
+        self.runf= open(self.run_outname,'w')
+
+
+    def downloadData(self, inps):
+        self.runf.write(self.text_cmd + 'download_rsmas.py ' + inps.customTemplateFile + '\n')
+        
+    def creatOrCopyDEM(self, inps):
+        self.runf.write(self.text_cmd + 'dem_rsmas.py ' + inps.customTemplateFile + '\n')
+       
+            
+    def finalize(self):
+        self.runf.close()
+              
+        
+   
+################################################
+
+class post_run(object):
+    """
+       A class representing a run which may contain several functions
+    """
+    #def __init__(self):
+
+    def configure(self, inps, runName):
+        for k in inps.__dict__.keys():
+            setattr(self, k, inps.__dict__[k])
+        self.runDir = os.path.join(self.work_dir, 'post_run_files')
+        if not os.path.exists(self.runDir):
+            os.makedirs(self.runDir)
+
+        self.run_outname = os.path.join(self.runDir, runName)
+        print ('writing ', self.run_outname)
+
+        self.config_path = os.path.join(self.work_dir,'post_configs')
         if not os.path.exists(self.config_path):
             os.makedirs(self.config_path)
 
