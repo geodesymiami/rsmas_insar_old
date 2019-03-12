@@ -26,9 +26,7 @@ hash -r;
 ./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
-cd .. ;
-mkdir sources;
-cd sources;
+cd ../sources ;
 
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
