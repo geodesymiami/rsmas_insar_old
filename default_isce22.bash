@@ -10,6 +10,8 @@ export WORKDIR=~/insarlab
 export NOTIFICATIONEMAIL=${USER}\@rsmas.miami.edu
 export INT_SCR=${PARENTDIR}/sources/roipac/INT_SCR
 export DOWNLOADHOST=local
+export SENTINEL_ORBITS=${HOME}/insarlab/orbits
+export SENTINEL_AUX=${HOME}/insarlab/auxfiles
 
 ############ Standard directories ###########
 export JOBDIR=${WORKDIR}/JOBS
@@ -33,7 +35,7 @@ export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/L
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA
 export SSARA_ASF=${PARENTDIR}/sources/ssara_ASF
 export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE
-export RSMAS_INSAR=${PARENTDIR}/insar
+export RSMAS_INSAR=${PARENTDIR}
 #export SENTINEL_STACK=${PARENTDIR}/3rdparty/isce/isce-2.2.0/contrib/stack/topsStack/
 export ISCE_STACK=${PARENTDIR}/sources/isceStack/sentinelstack
 #export ISCE_STACK=${PARENTDIR}/sources/isceStack/topsStack
