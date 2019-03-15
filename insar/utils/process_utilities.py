@@ -15,7 +15,7 @@ import re
 import subprocess
 from pysar.utils import utils
 from pysar.utils import readfile
-from rsmas_logging import RsmasLogger, loglevel
+from insar.objects.rsmas_logging import RsmasLogger, loglevel
 import shutil
 from collections import namedtuple
 import Template
