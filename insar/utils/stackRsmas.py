@@ -8,8 +8,8 @@ import os, sys
 import argparse
 from stackSentinel import get_dates
 import numpy as np
-from stack_rsmas import config, pre_run, post_run
-from _pysqsar_utilities import convert_geo2image_coord, patch_slice
+from insar.objects.stack_rsmas import config, pre_run, post_run
+from insar.utils.pysqsar_utilities import convert_geo2image_coord, patch_slice
 
 helpstr= '''
 Stack processor for Sentinel-1 data using process_rsmas.py .
