@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a93ba2bd-284a-4ed7-95c4-a7a911fc7d3f" name="pegasus" url="http://sxm1611@pegasus.ccs.miami.edu">
+        <fileTransfer host="sxm1611@pegasus.ccs.miami.edu" port="22" rootFolder="/nethome/sxm1611" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

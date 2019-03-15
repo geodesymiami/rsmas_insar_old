@@ -4,18 +4,11 @@
 # based on stackSentinel.py
 #####################################
 
-import os, imp, sys, glob, fnmatch
+import os, sys
 import argparse
-import configparser
-import  datetime
-import time
+from stackSentinel import get_dates
 import numpy as np
-import isce
-import isceobj
-from isceobj.Sensor.TOPS.Sentinel1 import Sentinel1
-from itertools import chain
-import re
-from stack_rsmas import config, run
+from stack_rsmas import config, pre_run, post_run
 from _pysqsar_utilities import convert_geo2image_coord, patch_slice
 
 helpstr= '''
@@ -56,11 +49,14 @@ def createParser():
                         help='custom template with option settings.\n' +
                              "It's equivalent to None if default pysarApp_template.txt is input.")
 
-    parser.add_argument('-s', '--slc_directory', dest='slc_dirname', type=str, required=True,
+    parser.add_argument('-s', '--slc_directory', dest='slc_dirname', type=str, default='./merged/SLC',
                         help='Directory with all Sentinel coregistered SLCs')
 
     parser.add_argument('-w', '--working_directory', dest='work_dir', type=str, default='./',
                         help='Working directory (project directory)')
+
+    parser.add_argument('-T', '--technique', dest='technique', type=str, default='smallbaseline',
+                        help='The InSAR processing workflow : (smallbaseline, squeesar) -- Default : smallbaseline')
 
     parser.add_argument('-p', '--patchsize', dest='patch_size', type=str, default='200', help='Patch size')
 
@@ -93,28 +89,7 @@ def createParser():
     parser.add_argument('-u', '--unw_method', dest='unwMethod', type=str, default='snaphu'
                         , help='Unwrapping method (icu or snaphu). -- Default : snaphu')
 
-    parser.add_argument('-useGPU', '--useGPU', dest='useGPU', action='store_true', default=False,
-                        help='Allow App to use GPU when available')
 
-    parser.add_argument('-ilist', action='store', default=None, dest='ilist',
-                        help='File containing pairs the user wishes to process. Each pair is listed on an individual line in a YYYYMMDD_YYYYMMDD format.',
-                        type=str)  ###SSS 7/2018
-
-    parser.add_argument('-ilistonly', action='store_true', dest='ilistonly',
-                        help='Specify yes to override program-generated pairs and only process the pairs listed within a file the user passes through with the "ilist" flag.')  ###SSS 7/2018
-
-    parser.add_argument('-clean_up', action='store_true', dest='cleanup', default=False,
-                        help="Remove fine*int burst fines, if mosaicked fine.int product has been successfully generated.")  ###SSS 7/2018
-
-    parser.add_argument('-layover_msk', action='store_true', dest='layovermsk', default=False,
-                        help="Generate layover mask and remove from filtered phase.")  ###SSS 7/2018
-
-    parser.add_argument('-water_msk', action='store_true', dest='watermsk', default=False,
-                        help="Generate water mask and remove from filtered phase.")  ###SSS 7/2018
-
-    parser.add_argument('-force', '--force', action='store_true', dest='force'
-                        , help='Force new acquisition override')
-    
     return parser
 
 
@@ -130,91 +105,164 @@ def cmdLineParse(iargs=None):
 ########################################
 # workflow:
 
-def squeesarStack(inps, acquisition_dates, pairs):
-    #############################
-    i=0
+def preprocessStack(inps, i = 0):
+
+    i += 1
+    runObj = pre_run()
+    runObj.configure(inps, 'run_' + str(i) + "_download_data")
+    runObj.downloadData(inps)
+    runObj.finalize()
+
+    i += 1
+    runObj = pre_run()
+    runObj.configure(inps, 'run_' + str(i) + "_download_dem")
+    runObj.creatOrCopyDEM(inps)
+    runObj.finalize()
+
+    return i
+
+
+def generalStack(inps, i):
+
+    i += 1
+    runObj = post_run()
+    runObj.configure(inps, 'run_' + str(i) + "_email_pysar")
+    runObj.emailPySAR(inps)
+    runObj.finalize()
+
+    i += 1
+    runObj = post_run()
+    runObj.configure(inps, 'run_' + str(i) + "_ingest_insarmaps")
+    runObj.ingestInsarmaps(inps)
+    runObj.finalize()
+
+    i += 1
+    runObj = post_run()
+    runObj.configure(inps, 'run_' + str(i) + "_email_insarmaps")
+    runObj.emailInsarmaps(inps)
+    runObj.finalize()
+
+    return i
+
+
+def smallbaselineStack(inps, i = 0):
 
     i+=1
-    runObj = run()
+    runObj = post_run()
+    runObj.configure(inps, 'run_' + str(i) + "_pysar_small_baseline")
+    runObj.pysarSB(inps)
+    runObj.finalize()
+
+    i = generalStack(inps, i)
+
+    return i
+
+
+
+def squeesarStack(inps, acquisition_dates, pairs, i = 0):
+    #############################
+
+    i+=1
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_crop_merged_slc")
     runObj.cropMergedSlc(acquisition_dates,inps)
     runObj.finalize()
 
     i += 1
-    runObj = run()
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_create_patch")
     runObj.createPatch(inps)
     runObj.finalize()
 
     i += 1
-    runObj = run()
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_phase_linking")
     runObj.phaseLinking(inps)
     runObj.finalize()
 
     i += 1
-    runObj = run()
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_generate_interferogram_and_coherence")
     runObj.generateIfg(inps, acquisition_dates)
     runObj.finalize()
 
     i+=1
-    runObj = run()
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_unwrap")
     runObj.unwrap(inps, pairs)
     runObj.finalize()
 
     i += 1
-    runObj = run()
+    runObj = post_run()
     runObj.configure(inps, 'run_' + str(i) + "_corrections_and_velocity")
-    runObj.plAPP(inps)
+    runObj.pysarCorrections(inps)
     runObj.finalize()
 
+    i = generalStack(inps, i)
 
     return i
+
 
 def main(iargs=None):
 
 
     inps = cmdLineParse(iargs)
 
-    inps.geo_master_dir = os.path.join(inps.work_dir, 'merged/geom_master')
-    inps.squeesar_dir = os.path.join(inps.work_dir, 'SqueeSAR')
 
-    cbox = [val for val in inps.cropbox.split()]
-    if len(cbox) != 4:
-        raise Exception('Bbox should contain 4 floating point values')
-
-
-    crop_area = np.array(convert_geo2image_coord(inps.geo_master_dir, np.float32(cbox[0]), np.float32(cbox[1]),
-                                         np.float32(cbox[2]), np.float32(cbox[3])))
-
-    inps.lin = crop_area[1] - crop_area[0]
-    inps.sam = crop_area[3] - crop_area[2]
-
-    inps.patch_rows, inps.patch_cols, inps.patch_list = \
-        patch_slice(inps.lin, inps.sam, np.int(inps.azimuth_window), np.int(inps.range_window), np.int(inps.patch_size))
-    
-    inps.bbox_rdr = '{} {} {} {}'.format(crop_area[0],crop_area[1],crop_area[2],crop_area[3])
-    print(inps.bbox_rdr)
-
-    if os.path.exists(os.path.join(inps.work_dir, 'run_files_SQ')):
+    if os.path.exists(os.path.join(inps.work_dir, 'post_run_files')):
         print('')
         print('**************************')
-        print('run_files folder exists.')
-        print(os.path.join(inps.work_dir, 'run_files_SQ'), ' already exists.')
+        print('post_run_files folder exists.')
+        print(os.path.join(inps.work_dir, 'post_run_files'), ' already exists.')
         print('Please remove or rename this folder and try again.')
         print('')
         print('**************************')
-        sys.exit(1)
+    else:
 
-    dateList = os.listdir(inps.slc_dirname)
+        if inps.technique == 'smallbaseline':
 
-    pairs = []
-    for i in range(len(dateList)-1):
-        pairs.append((dateList[0],dateList[i+1]))
+            smallbaselineStack(inps, i=0)
 
-    squeesarStack(inps, dateList, pairs)
+        else:
+
+            dateList, stackMasterDate, slaveDates, safe_dict = get_dates(inps)
+
+            inps.geo_master_dir = os.path.join(inps.work_dir, 'merged/geom_master')
+            inps.squeesar_dir = os.path.join(inps.work_dir, 'SqueeSAR')
+
+            cbox = [val for val in inps.cropbox.split()]
+            if len(cbox) != 4:
+                raise Exception('Bbox should contain 4 floating point values')
+
+
+            crop_area = np.array(convert_geo2image_coord(inps.geo_master_dir, np.float32(cbox[0]), np.float32(cbox[1]),
+                                                 np.float32(cbox[2]), np.float32(cbox[3])))
+
+            inps.lin = crop_area[1] - crop_area[0]
+            inps.sam = crop_area[3] - crop_area[2]
+
+            inps.patch_rows, inps.patch_cols, inps.patch_list = \
+                patch_slice(inps.lin, inps.sam, np.int(inps.azimuth_window), np.int(inps.range_window), np.int(inps.patch_size))
+
+            inps.bbox_rdr = '{} {} {} {}'.format(crop_area[0],crop_area[1],crop_area[2],crop_area[3])
+            print(inps.bbox_rdr)
+
+            if os.path.exists(os.path.join(inps.work_dir, 'run_files_SQ')):
+                print('')
+                print('**************************')
+                print('run_files folder exists.')
+                print(os.path.join(inps.work_dir, 'run_files_SQ'), ' already exists.')
+                print('Please remove or rename this folder and try again.')
+                print('')
+                print('**************************')
+                sys.exit(1)
+
+
+            pairs = []
+            for i in range(len(dateList)-1):
+                pairs.append((dateList[0],dateList[i+1]))
+
+            squeesarStack(inps, dateList, pairs)
 
 
 

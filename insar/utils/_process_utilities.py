@@ -13,12 +13,12 @@ import sys
 import glob
 import re
 import subprocess
-sys.path.insert(0, os.getenv('SSARAHOME'))
 from pysar.utils import utils
 from pysar.utils import readfile
 from rsmas_logging import RsmasLogger, loglevel
 import shutil
 from collections import namedtuple
+import Template
 
 from pysar.defaults.auto_path import autoPath
 import messageRsmas
@@ -117,7 +117,8 @@ def _remove_directories(directories_to_delete):
 
     return None
   
-##########################################################################
+
+############################################################################
 
 def create_default_template():
     """ Creates default template file. """

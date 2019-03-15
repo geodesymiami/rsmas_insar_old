@@ -20,7 +20,9 @@ class config(object):
     """
        A class representing the config file
     """
-    def __init__(self, outname):
+    def __init__(self, config_path, outname):
+        if not os.path.exists(config_path):
+            os.makedirs(config_path)
         self.f= open(outname,'w')
         self.f.write('[Common]'+'\n')
         self.f.write('')
@@ -112,12 +114,7 @@ class config(object):
         self.f.write('alks : ' + self.rangeLooks + '\n')
         self.f.write('rlks : ' + self.azimuthLooks + '\n')
 
-    def timeseries(self, function):
-        self.f.write('###################################' + '\n')
-        self.f.write(function + '\n')
-        self.f.write('plApp : ' + '\n')
-        self.f.write('template : ' + self.template + '\n')
-        
+
         
     def finalize(self):
         self.f.close()
@@ -140,9 +137,7 @@ class pre_run(object):
         self.run_outname = os.path.join(self.runDir, runName)
         print ('writing ', self.run_outname)
 
-        #self.config_path = os.path.join(self.work_dir,'pre_configs')
-        #if not os.path.exists(self.config_path):
-        #    os.makedirs(self.config_path)
+        self.config_path = os.path.join(self.work_dir, 'configs')
 
         self.runf= open(self.run_outname,'w')
 
@@ -167,7 +162,7 @@ class post_run(object):
     """
     #def __init__(self):
 
-    def configure(self, inps, runName):
+    def configure_run(self, inps, runName):
         for k in inps.__dict__.keys():
             setattr(self, k, inps.__dict__[k])
         self.runDir = os.path.join(self.work_dir, 'post_run_files')
@@ -177,9 +172,7 @@ class post_run(object):
         self.run_outname = os.path.join(self.runDir, runName)
         print ('writing ', self.run_outname)
 
-        self.config_path = os.path.join(self.work_dir,'post_configs')
-        if not os.path.exists(self.config_path):
-            os.makedirs(self.config_path)
+        self.config_path = os.path.join(self.work_dir, 'configs')
 
         self.runf= open(self.run_outname,'w')
 
@@ -189,7 +182,7 @@ class post_run(object):
         for slc in acquisitions:
             cropDir = os.path.join(self.work_dir, 'merged/SLC/' + slc)
             configName = os.path.join(self.config_path, 'config_crop_' + slc)
-            configObj = config(configName)
+            configObj = config(self.config_path, configName)
             configObj.configure(self)
             configObj.input = os.path.join(cropDir, slc +'.slc.full')
             configObj.output = os.path.join(cropDir, slc + '.slc')
@@ -200,7 +193,7 @@ class post_run(object):
             configObj.multilook_tool = 'gdal'
             configObj.crop_sentinel('[Function-1]')
             configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+            self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
         list_geo = ['lat', 'lon', 'los', 'hgt', 'shadowMask', 'incLocal']
         multiookToolDict = {'lat*rdr': 'gdal', 'lon*rdr': 'gdal', 'los*rdr': 'gdal', 'hgt*rdr': "gdal",
@@ -209,7 +202,7 @@ class post_run(object):
             pattern = item+'*rdr'
             geoDir = os.path.join(self.work_dir, 'merged/geom_master/')
             configName = os.path.join(self.config_path, 'config_crop_' + item)
-            configObj = config(configName)
+            configObj = config(self.config_path, configName)
             configObj.configure(self)
             configObj.input = os.path.join(geoDir, item + '.rdr.full')
             configObj.output = os.path.join(geoDir, item + '.rdr')
@@ -220,12 +213,12 @@ class post_run(object):
             configObj.multilook_tool = multiookToolDict[pattern]
             configObj.crop_sentinel('[Function-1]')
             configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+            self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
 
     def createPatch(self, inps):
         configName = os.path.join(self.config_path, 'config_create_patch')
-        configObj = config(configName)
+        configObj = config(self.config_path, configName)
         configObj.configure(self)
         configObj.slcDir = inps.slc_dirname
         configObj.sqDir = inps.squeesar_dir
@@ -234,14 +227,14 @@ class post_run(object):
         configObj.azimuthWindow = inps.azimuth_window
         configObj.create_patch('[Function-1]')
         configObj.finalize()
-        self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+        self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
 
     def phaseLinking(self, inps):
 
         for patch in inps.patch_list:
             configName = os.path.join(self.config_path, 'config_phase_link_PATCH'+patch)
-            configObj = config(configName)
+            configObj = config(self.config_path, configName)
             configObj.configure(self)
             configObj.patchDir = os.path.join(inps.squeesar_dir,'PATCH'+patch)
             configObj.rangeWindow = inps.range_window
@@ -249,7 +242,7 @@ class post_run(object):
             configObj.plmethod = inps.plmethod
             configObj.phase_link('[Function-1]')
             configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+            self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
 
     def generateIfg(self, inps, acquisitions):
@@ -260,7 +253,7 @@ class post_run(object):
         for ifg in acquisitions[1::]:
             index += 1
             configName = os.path.join(self.config_path, 'config_generate_ifgram_{}_{}'.format(acquisitions[0],ifg))
-            configObj = config(configName)
+            configObj = config(self.config_path, configName)
             configObj.configure(self)
             configObj.sqDir = inps.squeesar_dir
             configObj.ifgDir = os.path.join(ifgram_dir, '{}_{}'.format(acquisitions[0],ifg))
@@ -272,9 +265,9 @@ class post_run(object):
             configObj.azimuthLooks = inps.azimuthLooks
             configObj.generate_igram('[Function-1]')
             configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+            self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
         configName = os.path.join(self.config_path, 'config_generate_quality_map')
-        configObj = config(configName)
+        configObj = config(self.config_path, configName)
         configObj.configure(self)
         configObj.sqDir = inps.squeesar_dir
         configObj.ifgDir = inps.geo_master_dir
@@ -287,7 +280,7 @@ class post_run(object):
         configObj.plmethod = inps.plmethod
         configObj.generate_igram('[Function-1]')
         configObj.finalize()
-        self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+        self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
     def unwrap(self, inps, pairs):
         for pair in pairs:
@@ -295,7 +288,7 @@ class post_run(object):
             slave = pair[1]
             mergedDir = os.path.join(self.work_dir, 'merged/interferograms/' + master + '_' + slave)
             configName = os.path.join(self.config_path ,'config_igram_unw_' + master + '_' + slave)
-            configObj = config(configName)
+            configObj = config(self.config_path, configName)
             configObj.configure(self)
             configObj.ifgName = os.path.join(mergedDir,'filt_fine.int')
             configObj.cohName = os.path.join(mergedDir,'filt_fine.cor')
@@ -306,47 +299,23 @@ class post_run(object):
             configObj.unwMethod = inps.unwMethod
             configObj.unwrap('[Function-1]')
             configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+            self.runf.write(self.text_cmd + 'wrapper_rsmas.py -c ' + configName + '\n')
 
 
-    def plAPP(self,inps):
-        configName = os.path.join(self.config_path, 'config_corrections_and_velocity')
-        configObj = config(configName)
-        configObj.configure(self)
-        configObj.template = inps.customTemplateFile
-        configObj.timeseries('[Function-1]')
-        configObj.finalize()
-        self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+    def pysarCorrections(self,inps):
+        self.runf.write(self.text_cmd + 'timeseries_corrections.py ' + inps.customTemplateFile + '\n')
 
-################################################
+    def pysarSB(self,inps):
+        self.runf.write(self.text_cmd + 'pysarApp.py ' + inps.customTemplateFile + '\n')
 
-    def create_wbdmask(self, pairs): ###SSS 7/2018: Generate water mask.
-        configName = os.path.join(self.config_path ,'config_make_watermsk')
-        configObj = config(configName)
-        configObj.configure(self)
-        if self.layovermsk:  ###SSS 7/2018: layover mask, if specified.
-            configObj.layovermsk = 'True'
-        if self.watermsk:  ###SSS 7/2018: water mask, if specified.
-            configObj.watermsk = 'True'
-        configObj.createWbdMask('[Function-1]')
-        configObj.finalize()
-        self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+    def emailPySAR(self, inps):
+        self.runf.write(self.text_cmd + 'email_results.py ' + inps.customTemplateFile + '\n')
 
-    def mask_layover(self, pairs): ###SSS 7/2018: Add layover/water masking option.
-        for pair in pairs:
-            master = pair[0]
-            slave = pair[1]
-            configName = os.path.join(self.config_path ,'config_igram_mask_' + master + '_' + slave)
-            configObj = config(configName)
-            configObj.configure(self)
-            configObj.intname = os.path.join(self.work_dir,'merged/interferograms/'+master+'_'+slave,'filt_fine.int')
-            if self.layovermsk:  ###SSS 7/2018: layover mask, if specified.
-                configObj.layovermsk = 'True'
-            if self.watermsk:  ###SSS 7/2018: water mask, if specified.
-                configObj.watermsk = 'True'
-            configObj.maskLayover('[Function-1]')
-            configObj.finalize()
-            self.runf.write(self.text_cmd + 'SQWrapper.py -c ' + configName + '\n')
+    def ingestInsarmaps(self, inps):
+        self.runf.write(self.text_cmd + 'ingest_insarmaps.py ' + inps.customTemplateFile + '\n')
+
+    def emailInsarmaps(self, inps):
+        self.runf.write(self.text_cmd + 'email_results.py ' + inps.customTemplateFile + ' --insarmap\n')
 
     def finalize(self):
         self.runf.close()
