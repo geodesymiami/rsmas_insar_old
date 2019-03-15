@@ -11,6 +11,7 @@ import glob
 import argparse
 import subprocess
 from pysar.utils import readfile
+from _process_utilities import _remove_directories, clean_list
 
 ###############################################################################
 EXAMPLE = '''example:
@@ -59,6 +60,8 @@ def email_insarmaps_results(custom_template):
     if status is not 0:
         sys.exit('Error in email_insarmaps_results')
 
+    return
+
 
 def email_pysar_results(custom_template):
     """ email pysar results """
@@ -102,18 +105,25 @@ def email_pysar_results(custom_template):
         if status is not 0:
             sys.exit('Error in email_pysar_results')
 
+    return
+
 ###########################################################################################
 def main(iargs=None):
     """ email pysar or insarmap results """
 
     inps = command_line_parse(iargs)
 
-    custem_template = readfile.read_template(inps.template_file)
+    custom_template = readfile.read_template(inps.template_file)
 
     if inps.insarmap:
-        email_insarmaps_results(custem_template)
+        email_insarmaps_results(custom_template)
+
+        if int(custom_template['cleanopt']) == 4:
+            cleanlist = clean_list()
+            _remove_directories(cleanlist[4])
+
     else:
-        email_pysar_results(custem_template)
+        email_pysar_results(custom_template)
 
 
 ###########################################################################################

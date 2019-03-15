@@ -10,9 +10,9 @@
 import os
 import argparse
 import shutil
-import subprocess
 import _process_utilities as putils
 from _process_utilities  import _remove_directories, clean_list
+from _process_utilities import get_project_name, get_work_directory
 import create_runfiles, execute_pre_runfiles, execute_runfiles, execute_post_runfiles
 from pysar.utils import readfile
 
@@ -80,7 +80,11 @@ def create_process_rsmas_parser():
         help='Generate default template (and merge with custom template), then exit.')
     parser.add_argument('-H', dest='print_template', action='store_true',
                         help='print the default template file and exit.')
-
+    parser.add_argument(
+        '--remove_project_dir',
+        dest='remove_project_dir',
+        action='store_true',
+        help='remove directory before download starts')
     parser.add_argument(
         '--submit',
         dest='submit_flag',
@@ -96,23 +100,29 @@ def create_process_rsmas_parser():
     return parser
 
 
- #
- #   parser.add_argument(
- #       '--remove_project_dir',
- #       dest='remove_project_dir',
- #       action='store_true',
- #       help='remove directory before download starts')
-
-
 ##########################################################################
 
 
-def command_line_parse():
+def command_line_parse(iargs=None):
     """ Parses command line agurments into inps variable. """
 
     """Command line parser."""
     parser = create_process_rsmas_parser()
     inps = parser.parse_args(args=iargs)
+
+    inps.project_name = get_project_name(inps.customTemplateFile)
+    inps.work_dir = get_work_directory(None, inps.project_name)
+    inps.slc_dir = os.path.join(inps.work_dir, 'SLC')
+
+    if inps.remove_project_dir:
+        _remove_directories(directories_to_delete=[inps.work_dir])
+
+    if not os.path.isdir(inps.work_dir):
+        os.makedirs(inps.work_dir)
+    os.chdir(inps.work_dir)
+
+    if not os.path.isdir(inps.slc_dir):
+        os.makedirs(inps.slc_dir)
 
     template_file = os.path.join(os.getenv('PARENTDIR'), 'insar/defaults/rsmas_insar_template.txt')
     # generate default template
@@ -168,11 +178,6 @@ def command_line_parse():
         raise ValueError(msg)
     inps.runSteps = STEP_LIST[idx0:idx1 + 1]
 
-    # message
-    if len(inps.runSteps) == 1:
-        print(version.description)
-    else:
-        print(version.logo)
     print('Run routine processing with {} on steps: {}'.format(os.path.basename(__file__), inps.runSteps))
     if len(inps.runSteps) == 1:
         print('Remaining steps: {}'.format(STEP_LIST[idx0 + 1:]))
@@ -304,7 +309,7 @@ class RsmasInsar:
         execute_post_runfiles.main([self.customTemplateFile])
         return
 
-    def run(self, steps=STEP_LIST, plot=True):
+    def run(self, steps=STEP_LIST):
         # run the chosen steps
         for sname in steps:
             status = 0
@@ -336,29 +341,3 @@ class RsmasInsar:
 
 
 
-
-
-###############################################################################
-
-
-def run_ingest_insarmaps(inps):
-    """ Calls the script of ingest insarmaps and emails the results."""
-
-    if inps.flag_insarmaps:
-
-        command = 'ingest_insarmaps.py ' + inps.customTemplateFile
-        messageRsmas.log(command)
-        status = subprocess.Popen(command, shell=True).wait()
-        if status is not 0:
-            logger.log(loglevel.ERROR, 'ERROR in ingest_insarmaps.py')
-            raise Exception('ERROR in ingest_insarmaps.py')
-
-        putils.email_insarmaps_results(inps.custom_template)
-
-    # clean
-    if int(inps.custom_template['cleanopt']) == 4:
-        cleanlist = clean_list()
-        _remove_directories(cleanlist[4])
-
-    if inps.stopinsarmaps:
-        logger.log(loglevel.DEBUG, 'Exit as planned after insarmaps')
