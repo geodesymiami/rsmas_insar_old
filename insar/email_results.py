@@ -11,7 +11,7 @@ import glob
 import argparse
 import subprocess
 from pysar.utils import readfile
-from _process_utilities import _remove_directories, clean_list
+from insar.utils.process_utilities import _remove_directories, clean_list
 
 ###############################################################################
 EXAMPLE = '''example:
