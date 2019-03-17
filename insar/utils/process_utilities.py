@@ -18,10 +18,10 @@ from pysar.utils import readfile
 from insar.objects.rsmas_logging import RsmasLogger, loglevel
 import shutil
 from collections import namedtuple
-import Template
+#import Template
 
 from pysar.defaults.auto_path import autoPath
-import messageRsmas
+from insar.objects import messageRsmas
 ###############################################################################
 
 logfile_name = os.getenv('OPERATIONS') + '/LOGS/process_rsmas.log'
