@@ -12,8 +12,8 @@ from __future__ import print_function
 import os
 import sys
 import time
-import messageRsmas
-from _processSteps import RsmasInsar, command_line_parse
+from insar.objects import messageRsmas
+from insar.utils.processSteps import RsmasInsar, command_line_parse
 
 ###############################################################################
 
