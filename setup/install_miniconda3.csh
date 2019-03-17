@@ -25,9 +25,8 @@ unlink libuuid.so
 unlink libuuid.so.1
 ln -s /lib64/libuuid.so.1.3.0 libuuid.so.1
 ln -s /lib64/libuuid.so.1.3.0 libuuid.so
-cd ../..
+#cd ../..
 rehash
-conda install geocoder distributed --yes
 pip install --upgrade pip
 pip install opencv-python
 
