@@ -33,7 +33,7 @@ STEP_HELP = """Command line options for steps processing with names are chosen f
 In order to use either --start or --dostep, it is necessary that a
 previous run was done using one of the steps options to process at least
 through the step immediately preceding the starting step of the current run.
-""".format(STEP_LIST[0:3])
+""".format(STEP_LIST[0:4])
 
 EXAMPLE = """example: 
   process_rsmas.py  <customTemplateFile>            #run with default and custom templates
