@@ -133,7 +133,7 @@ def create_or_update_template(inps):
     
     # Read and update default template with custom input template 
     if not inps.template_file == inps.custom_template_file:
-        inps.custom_template = templateObj.update_options_from_file(inps.template_file)
+        inps.template = templateObj.update_options_from_file(inps.template_file)
 
     set_default_options(inps)
 
