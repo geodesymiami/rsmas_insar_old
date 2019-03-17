@@ -21,7 +21,7 @@ from pysar.utils import readfile
 
 STEP_LIST = [
     'download',
-    'runfiles'
+    'runfiles',
     'proc_image',
     'timeseries',
     ]
