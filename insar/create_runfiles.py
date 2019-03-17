@@ -66,7 +66,7 @@ def main(argv):
             print('')
             print('**************************')
         else:
-            from stackRsmas import preprocessStack
+            from insar.utils.stackRsmas import preprocessStack
             preprocessStack(inps, i=0)
 
             run_file_list = glob.glob(inps.work_dir + '/run_files/run_*')
