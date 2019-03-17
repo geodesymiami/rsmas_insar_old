@@ -11,7 +11,7 @@ import argparse
 from insar.objects.rsmas_logging import loglevel
 from insar.objects import messageRsmas
 
-from insar.utils.processSteps import create_or_update_template, create_or_copy_dem
+from insar.utils.process_utilities import create_or_update_template, create_or_copy_dem
 from insar.utils.process_utilities import get_work_directory, get_project_name
 from insar.utils.process_utilities import _remove_directories, send_logger
 
