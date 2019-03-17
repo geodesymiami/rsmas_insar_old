@@ -18,7 +18,7 @@ from pysar.utils import readfile
 from insar.objects.rsmas_logging import RsmasLogger, loglevel
 import shutil
 from collections import namedtuple
-#import Template
+from insar.objects.dataset_template import Template
 
 from pysar.defaults.auto_path import autoPath
 from insar.objects import messageRsmas
