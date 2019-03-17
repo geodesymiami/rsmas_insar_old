@@ -14,7 +14,7 @@ import insar.utils.process_utilities as putils
 from insar.utils.process_utilities  import _remove_directories, clean_list
 from insar.utils.process_utilities import get_project_name, get_work_directory
 import create_runfiles, execute_pre_runfiles, execute_runfiles, execute_post_runfiles
-from pysar.utils import readfile
+from pysar.utils import readfile, utils as ut
 
 
 ####################################################################
