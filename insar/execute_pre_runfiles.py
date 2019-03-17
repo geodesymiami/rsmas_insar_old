@@ -7,7 +7,7 @@ import os
 import sys
 import argparse
 import subprocess
-from _process_utilities import get_project_name, remove_zero_size_or_length_files
+from insar.utils.process_utilities import get_project_name, remove_zero_size_or_length_files
 from pysar.utils import readfile
 
 
