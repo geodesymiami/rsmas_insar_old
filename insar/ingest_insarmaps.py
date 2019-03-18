@@ -14,7 +14,7 @@ from insar.objects.rsmas_logging import loglevel
 from insar.objects import messageRsmas
 import password_config as password
 
-from insar.utils.processSteps import create_or_update_template
+from insar.utils.process_utilities import create_or_update_template
 from insar.utils.process_utilities  import get_work_directory, get_project_name, send_logger
 
 
