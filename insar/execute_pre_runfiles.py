@@ -29,11 +29,11 @@ def create_parser():
     return parser
 
 
-def command_line_parse(args):
+def command_line_parse(iargs=None):
     """ Parses command line agurments into inps variable. """
 
     parser = create_parser()
-    inps = parser.parse_args(args)
+    inps = parser.parse_args(args=iargs)
 
     return inps
 
