@@ -109,14 +109,7 @@ class inpsvar:
 
 def main(argv):
 
-    inps = inpsvar()
-
-    try:
-        inps.custom_template_file = sys.argv[1]
-        inps.start = int(sys.argv[2])
-        inps.stop = int(sys.argv[3])
-    except:
-        print('')
+    inps = command_line_parse(argv)
     
     inps = readfile.read_template(inps.custom_template_file)
     inps.project_name = get_project_name(inps.custom_template_file)
