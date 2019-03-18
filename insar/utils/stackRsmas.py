@@ -45,7 +45,7 @@ def createParser():
     parser.add_argument('-H', '--hh', nargs=0, action=customArgparseAction,
                         help='Display detailed help information.')
 
-    parser.add_argument('--customTemplateFile', nargs='?',
+    parser.add_argument('customTemplateFile', nargs='?',
                         help='custom template with option settings.\n' +
                              "It's equivalent to None if default pysarApp_template.txt is input.")
 
