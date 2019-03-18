@@ -10,10 +10,10 @@
 import os
 import argparse
 import shutil
+import insar
 import insar.utils.process_utilities as putils
 from insar.utils.process_utilities  import _remove_directories, clean_list
 from insar.utils.process_utilities import get_project_name, get_work_directory
-import create_runfiles, execute_pre_runfiles, execute_runfiles, execute_post_runfiles
 from pysar.utils import readfile, utils as ut
 
 
@@ -281,8 +281,8 @@ class RsmasInsar:
         1- images
         2- DEM
         """
-        create_runfiles.main([self.customTemplateFile, '--step', 'preprocess'])
-        execute_pre_runfiles.main([self.customTemplateFile])
+        insar.create_runfiles.main([self.customTemplateFile, '--step', 'preprocess'])
+        insar.execute_pre_runfiles.main([self.customTemplateFile])
         return
 
     def create_run_files(self, step_name):
@@ -290,15 +290,15 @@ class RsmasInsar:
         1. run_files
         2. post_run_files
         """
-        create_runfiles.main([self.customTemplateFile, '--step', 'mainprocess'])
-        create_runfiles.main([self.customTemplateFile, '--step', 'postprocess'])
+        insar.create_runfiles.main([self.customTemplateFile, '--step', 'mainprocess'])
+        insar.create_runfiles.main([self.customTemplateFile, '--step', 'postprocess'])
         return
 
     def run_process_images(self, step_name):
         """ Process images from unpacking to making interferograms
             (steps in the run_files folder)
         """
-        execute_runfiles.main([self.customTemplateFile])
+        insar.execute_runfiles.main([self.customTemplateFile])
         return
 
     def run_timeseries_and_insarmaps(self, step_name):
@@ -306,7 +306,7 @@ class RsmasInsar:
         1 - inversion either via small baseline or squeesar
         2 - corrections with PySAR
         """
-        execute_post_runfiles.main([self.customTemplateFile])
+        insar.execute_post_runfiles.main([self.customTemplateFile])
         return
 
     def run(self, steps=STEP_LIST):
