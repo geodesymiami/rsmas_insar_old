@@ -117,10 +117,11 @@ def main(argv):
         inps.stop = int(sys.argv[3])
     except:
         print('')
-
+    
+    inps = readfile.read_template(inps.custom_template_file)
     inps.project_name = get_project_name(inps.custom_template_file)
     inps.work_dir = os.getenv('SCRATCHDIR') + '/' + inps.project_name
-    inps = readfile.read_template(inps.custom_template_file)
+    
     run_file_list = get_run_files(inps)
 
     try:
