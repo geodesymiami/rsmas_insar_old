@@ -11,9 +11,9 @@ import argparse
 import subprocess
 import glob
 
-import messageRsmas
-import _process_utilities as putils
-from dataset_template import Template
+from insar.objects import messageRsmas
+import insar.utils.process_utilities as putils
+from insar.objects.dataset_template import Template
 import create_batch as cb
 
 ###############################################################################
