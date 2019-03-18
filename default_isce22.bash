@@ -34,7 +34,7 @@ export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/L
 ############ FOR PROCESSDING  #########
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA
 export SSARA_ASF=${PARENTDIR}/sources/ssara_ASF
-export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE
+export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE/isce
 export RSMAS_INSAR=${PARENTDIR}
 #export SENTINEL_STACK=${PARENTDIR}/3rdparty/isce/isce-2.2.0/contrib/stack/topsStack/
 export ISCE_STACK=${PARENTDIR}/sources/isceStack/sentinelstack
@@ -52,6 +52,7 @@ export PROJ_LIB=${CONDA_PREFIX}/share/proj
 export GDAL_DATA=${PYTHON3DIR}/share/gdal
 
 export PYTHONPATH=${PYTHONPATH-""}
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/setup/accounts
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
 export PYTHONPATH=${PYTHONPATH}:${ISCE_HOME}:${PYTHON3DIR}/lib/python3.6/site-packages
@@ -70,6 +71,7 @@ export PATH=${PATH}:${SSARAHOME}
 export PATH=${PATH}:${SSARA_ASF}
 export PATH=${PATH}:${SQUEESAR}
 export PATH=${PATH}:${RSMAS_INSAR}/insar
+export PATH=${PATH}:${PARENTDIR}/setup/accounts
 export PATH=${PATH}:${PARENTDIR}/sources/rsmas_tools/SAR:${PARENTDIR}/sources/rsmas_tools/GPS:${PARENTDIR}/sources/rsmas_tools/notebooks
 export PATH=${ISCE_HOME}/isce/applications:${ISCE_HOME}/isce/bin:${ISCE_RSMAS}:${ISCE_STACK}:${PATH}
 export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/sh
