@@ -111,7 +111,7 @@ def main(argv):
 
     inps = command_line_parse(argv)
     
-    inps = readfile.read_template(inps.custom_template_file)
+    #inps = readfile.read_template(inps.custom_template_file)
     inps.project_name = get_project_name(inps.custom_template_file)
     inps.work_dir = os.getenv('SCRATCHDIR') + '/' + inps.project_name
     
