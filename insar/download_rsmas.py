@@ -14,7 +14,7 @@ import glob
 from insar.objects import messageRsmas
 import insar.utils.process_utilities as putils
 from insar.objects.dataset_template import Template
-import insar.utils.create_batch as cb
+import insar.create_batch as cb
 
 ###############################################################################
 EXAMPLE = '''example:
