@@ -100,18 +100,15 @@ def submit_run_jobs(run_file_list, cwd, memoryuse):
             print('move command:', cmd)
             os.system(cmd)
 
-    return None
+    return 
 
 
 ##############################################################################
-class inpsvar:
-    pass
 
 def main(iargs=None):
 
     inps = command_line_parse(iargs)
     
-    #inps = readfile.read_template(inps.custom_template_file)
     inps.project_name = get_project_name(inps.custom_template_file)
     inps.work_dir = os.getenv('SCRATCHDIR') + '/' + inps.project_name
     
@@ -129,6 +126,7 @@ def main(iargs=None):
     memoryuse = set_memory_defaults()
 
     submit_run_jobs(run_file_list[inps.start - 1:inps.stop], inps.work_dir, memoryuse)
+    return
 
 ###########################################################################################
 
