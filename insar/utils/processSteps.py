@@ -316,20 +316,16 @@ class RsmasInsar:
             print('\n\n******************** step - {} ********************'.format(sname))
 
             if sname == 'download':
-                status = self.run_download_data(sname)
+                self.run_download_data(sname)
 
             elif sname == 'runfiles':
-                status = self.create_run_files(sname)
+                self.create_run_files(sname)
 
             elif sname == 'proc_image':
-                status = self.run_process_images(sname)
+                self.run_process_images(sname)
 
             elif sname == 'timeseries':
-                status = self.run_timeseries_and_insarmaps(sname)
-
-            if status is not 0:
-                # raise error
-                raise RuntimeError('step {} with status {}'.format(sname, status))
+                self.run_timeseries_and_insarmaps(sname)
 
 
         # message
