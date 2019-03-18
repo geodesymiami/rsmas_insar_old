@@ -107,9 +107,9 @@ def submit_run_jobs(run_file_list, cwd, memoryuse):
 class inpsvar:
     pass
 
-def main(argv):
+def main(iargs=None):
 
-    inps = command_line_parse(argv)
+    inps = command_line_parse(iargs)
     
     #inps = readfile.read_template(inps.custom_template_file)
     inps.project_name = get_project_name(inps.custom_template_file)
@@ -133,4 +133,4 @@ def main(argv):
 ###########################################################################################
 
 if __name__ == "__main__":
-    main(sys.argv[:])
+    main()
