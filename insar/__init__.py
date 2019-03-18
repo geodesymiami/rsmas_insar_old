@@ -18,3 +18,18 @@ try:
 except KeyError:
     print('Using default PySAR Path: %s' % (insar_path))
     os.environ['RSMAS_INSAR'] = insar_path
+    
+    
+__all__=[
+    'create_runfiles',
+    'dem_rsmas',
+    'download_rsmas',
+    'email_results',
+    'execute_pre_runfiles',
+    'execute_runfiles',
+    'execute_post_runfiles',
+    'ingest_insarmaps',
+    'wrapper_rsmas'
+]
+for module in __all__:
+    importlib.import_module(__name__ + '.' + module)
