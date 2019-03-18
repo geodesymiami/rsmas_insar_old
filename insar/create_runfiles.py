@@ -28,7 +28,7 @@ def create_parser():
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter, epilog=EXAMPLE)
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1')
-    parser.add_argument('custom_template_file', nargs='?',
+    parser.add_argument('customTemplateFile', nargs='?',
                         help='custom template with option settings.\n')
     parser.add_argument('-s', '--step', dest='step', type=str, default='preprocess',
                         help='Processing step: (preprocess, mainprocess, postprocess) -- Default : preprocess')
@@ -50,7 +50,7 @@ def command_line_parse(args):
 def main(argv):
 
     inps = command_line_parse(sys.argv[1:])
-    inps.project_name = get_project_name(inps.custom_template_file)
+    inps.project_name = get_project_name(inps.customTemplateFile)
     inps.work_dir = get_work_directory(None, inps.project_name)
     inps = create_or_update_template(inps)
     os.chdir(inps.work_dir)
@@ -85,7 +85,7 @@ def main(argv):
         except:
             dem_file = create_or_copy_dem(work_dir=inps.work_dir,
                                           template=inps.template,
-                                          custom_template_file=inps.custom_template_file)
+                                          custom_template_file=inps.customTemplateFile)
 
         inps.demDir = dem_file
         command = 'stackSentinel.py'
@@ -163,7 +163,7 @@ def main(argv):
                          '-exclude_dates', '-azimuth_looks', '-range_looks', '-unw_method',
                          '-text_cmd']
 
-        inpsvalue = ['custom_template_file', 'slcDir', 'workingDir', 'patch_size', 'plmethod',
+        inpsvalue = ['customTemplateFile', 'slcDir', 'workingDir', 'patch_size', 'plmethod',
                      'range_window', 'azimuth_window', 'cropbox', 'excludeDate', 'azimuthLooks', 'rangeLooks',
                      'unwMethod', 'textCmd']
 
