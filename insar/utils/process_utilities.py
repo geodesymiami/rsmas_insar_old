@@ -128,11 +128,11 @@ def create_or_update_template(inps):
     print('\n*************** Template Options ****************')
     # write default template
     inps.template_file = create_default_template()
-    templateObj = Template(custom_template_file=inps.custom_template_file)
+    templateObj = Template(custom_template_file=inps.customTemplateFile)
     inps.custom_template = templateObj.get_options()
     
     # Read and update default template with custom input template 
-    if not inps.template_file == inps.custom_template_file:
+    if not inps.template_file == inps.customTemplateFile:
         inps.template = templateObj.update_options_from_file(inps.template_file)
 
     set_default_options(inps)
