@@ -143,10 +143,12 @@ class pre_run(object):
 
 
     def downloadData(self, inps):
-        self.runf.write(self.text_cmd + 'download_rsmas.py ' + inps.customTemplateFile + '\n')
+        #self.runf.write(self.text_cmd + 'download_rsmas.py ' + inps.customTemplateFile + '\n')
+        self.runf.write('download_rsmas.py ' + inps.customTemplateFile + '\n')
         
     def creatOrCopyDEM(self, inps):
-        self.runf.write(self.text_cmd + 'dem_rsmas.py ' + inps.customTemplateFile + '\n')
+        #self.runf.write(self.text_cmd + 'dem_rsmas.py ' + inps.customTemplateFile + '\n')
+        self.runf.write('dem_rsmas.py ' + inps.customTemplateFile + '\n')
        
             
     def finalize(self):
