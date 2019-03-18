@@ -69,7 +69,7 @@ def main(argv):
             from insar.utils.stackRsmas import preprocessStack
             preprocessStack(inps, i=0)
 
-            run_file_list = glob.glob(inps.work_dir + '/run_files/run_*')
+            run_file_list = glob.glob(inps.work_dir + '/pre_run_files/run_*')
             with open(inps.work_dir + '/pre_run_files_list', 'w') as run_file:
                 for item in run_file_list:
                     run_file.writelines(item + '\n')
