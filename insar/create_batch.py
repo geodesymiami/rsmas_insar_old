@@ -11,7 +11,7 @@ import sys
 import subprocess
 import argparse
 import time
-import insar.objects.messageRsmas
+from insar.objects import messageRsmas
 
 
 def create_argument_parser():
