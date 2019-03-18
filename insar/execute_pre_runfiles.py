@@ -126,7 +126,7 @@ def main(iargs=None):
     memoryuse = set_memory_defaults()
 
     submit_run_jobs(run_file_list[inps.start - 1:inps.stop], inps.work_dir, memoryuse)
-    return
+    return None
 
 ###########################################################################################
 
