@@ -17,7 +17,7 @@ import inspect
 def Message(msg):
     f = open('log1','a')
     callingFunction  = os.path.basename(inspect.stack()[1][1])
-    if isinstance(msg,basestring):
+    if isinstance(msg,str):
         string = callingFunction + ":   " + msg
         sys.stderr.write(string + '\n')
         f.write(string + "\n")
