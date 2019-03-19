@@ -32,10 +32,10 @@ def create_parser():
     """ Creates command line argument parser object. """
     parser = argparse.ArgumentParser(description='Downloads SAR data using a variety of scripts',
                                      formatter_class=argparse.RawTextHelpFormatter, epilog=EXAMPLE)
-    parser.add_argument('template_file', help='template file containing ssaraopt field')
+    parser.add_argument('template', help='template file containing ssaraopt field')
     parser.add_argument( '--submit', dest='submit_flag', action='store_true', help='submits job')
 
-    # parser.add_argument('template_file', help='template file containing ssaraopt field', nargs='?')
+    # parser.add_argument('template', help='template file containing ssaraopt field', nargs='?')
     return parser
 
 def ssh_with_commands(hostname, command_list):
@@ -56,14 +56,14 @@ def download(script_name, inps, outnum):
     """
     Runs download script with given script name.
     :param script_name: Name of download script to run (ssara, asfserial)
-    :param template_file: Template file to download data from.
+    :param template: Template file to download data from.
     :param slc_dir: SLC directory inside work directory.
     """
     if script_name not in {'ssara', 'asfserial'}:
         print('{} download not supported'.format(script_name))
 
     #out_file = os.path.join(os.getcwd(), 'out_download_{0}{1}'.format(script_name,outnum))
-    #command = 'download_{0}_rsmas.py {1}'.format(script_name, template_file)
+    #command = 'download_{0}_rsmas.py {1}'.format(script_name, template)
     #command = '({0} > {1}.o) >& {1}.e'.format(command, out_file)
 
     if not os.getenv('DOWNLOADHOST') == 'local':
@@ -115,12 +115,12 @@ def main(iargs=None):
     if inps.submit_flag:
         job_file_name = 'download_rsmas'
         work_dir = os.getcwd()
-        job_name = inps.template_file.split(os.sep)[-1].split('.')[0]
+        job_name = inps.template.split(os.sep)[-1].split('.')[0]
         wall_time = '24:00'
 
         cb.submit_script(job_name, job_file_name, sys.argv[:], work_dir, wall_time)
 
-    inps.project_name = putils.get_project_name(custom_template_file=inps.template_file)
+    inps.project_name = putils.get_project_name(custom_template_file=inps.template)
     inps.work_dir = putils.get_work_directory(None, inps.project_name)
     inps.slc_dir = os.path.join(inps.work_dir, 'SLC')
     if not os.path.isdir(inps.work_dir):
@@ -133,7 +133,7 @@ def main(iargs=None):
     # if satellite is not Sentinel (not tried yet)
     if 'SenDT' not in inps.project_name and 'SenAT' not in inps.project_name:
 
-        dataset_template = Template(inps.template_file)
+        dataset_template = Template(inps.template)
 
         ssaraopt = dataset_template.generate_ssaraopt_string()
         ssara_call = ['ssara_federated_query.py'] + ssaraopt + ['--print', '--download']
@@ -143,9 +143,9 @@ def main(iargs=None):
         return
 
     download('ssara', inps, outnum = 1)
-    #download('ssara', inps.template_file, slc_dir, outnum = 2)
+    #download('ssara', inps.template, slc_dir, outnum = 2)
     download('asfserial', inps, outnum = 1)
-    #download('asfserial', inps.template_file, slc_dir, outnum = 1)
+    #download('asfserial', inps.template, slc_dir, outnum = 1)
 
 ###########################################################################################
 
