@@ -14,7 +14,7 @@ sys.path.insert(1, os.path.join(os.getenv('RSMAS_INSAR'), 'insar/utils'))
 from insar.objects import messageRsmas
 import insar.utils.process_utilities as putils
 from insar.objects.dataset_template import Template
-import create_batch as cb
+import insar.create_batch as cb
 
 ###############################################################################
 EXAMPLE = '''example:
