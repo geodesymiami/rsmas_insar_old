@@ -81,7 +81,7 @@ def download(script_name, inps, outnum):
     elif script_name=='asfserial':
        try:
            os.chdir(inps.slc_dir)
-           download_asfserial_rsmas.generate_files_csv()
+           download_asfserial_rsmas.generate_files_csv(inps)
            download_asfserial_rsmas.run_download_asf_serial()
            download_asfserial_rsmas.change_file_permissions()
        except:
