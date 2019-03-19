@@ -52,15 +52,15 @@ export PROJ_LIB=${CONDA_PREFIX}/share/proj
 export GDAL_DATA=${PYTHON3DIR}/share/gdal
 
 export PYTHONPATH=${PYTHONPATH-""}
-export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/setup/accounts
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
-export PYTHONPATH=${PYTHONPATH}:${ISCE_HOME}:${PYTHON3DIR}/lib/python3.6/site-packages
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/isce/ISCE:${PYTHON3DIR}/lib/python3.6/site-packages
 export PYTHONPATH=${PYTHONPATH}:${SQUEESAR}
 export PYTHONPATH=${PYTHONPATH}:${RSMAS_INSAR}
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_tools
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/PyAPS
 export PYTHONPATH=${PYTHONPATH}:${ISCE_STACK}
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/setup/accounts
 export PYTHONPATH_RSMAS=${PYTHONPATH}
 export PROJ_LIB=${PARENTDIR}/3rdparty/miniconda3/share/proj
 
@@ -73,7 +73,7 @@ export PATH=${PATH}:${SQUEESAR}
 export PATH=${PATH}:${RSMAS_INSAR}/insar
 export PATH=${PATH}:${PARENTDIR}/setup/accounts
 export PATH=${PATH}:${PARENTDIR}/sources/rsmas_tools/SAR:${PARENTDIR}/sources/rsmas_tools/GPS:${PARENTDIR}/sources/rsmas_tools/notebooks
-export PATH=${ISCE_HOME}/isce/applications:${ISCE_HOME}/isce/bin:${ISCE_RSMAS}:${ISCE_STACK}:${PATH}
+export PATH=:${ISCE_HOME}/isce/applications:${ISCE_HOME}/isce/bin:${ISCE_RSMAS}:${ISCE_STACK}:${PATH}
 export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/sh
 export PATH=${PYTHON3DIR}/bin:${PATH}
 export PATH=${PATH}:${PROJ_LIB} 

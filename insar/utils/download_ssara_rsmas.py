@@ -9,9 +9,7 @@ import argparse
 from insar.objects.dataset_template import Template
 from insar.objects.rsmas_logging import RsmasLogger, loglevel
 import insar.objects.messageRsmas
-import insar.utils.process_utilities as putils
-
-sys.path.insert(0, os.getenv('SSARAHOME'))
+from insar.utils import process_utilities as putils
 import password_config as password
 
 inps = None
