@@ -73,12 +73,12 @@ def download(script_name, inps, outnum):
          
          if script_name=='ssara':
             try:
-                successful=download_ssara_rsmas.run_ssara(inps)
+                download_ssara_rsmas.run_ssara(inps)
             except:
                 raise Exception('Error running download_ssara_rsmas.py')
          elif script_name=='asfserial':
             try:
-                successful=download_asfserial_rsmas.run_download_asf_serial()
+                download_asfserial_rsmas.run_download_asf_serial()
             except:
                 raise Exception('Error running download_asfserial_rsmas.py')
                   
