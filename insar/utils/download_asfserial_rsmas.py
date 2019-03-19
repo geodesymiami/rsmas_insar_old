@@ -4,15 +4,14 @@ import sys
 import subprocess
 import argparse
 import time
-from dataset_template import Template
+from insar.objects.dataset_template import Template
 import datetime
-from rsmas_logging import RsmasLogger, loglevel
-import messageRsmas
-import _process_utilities as putils
+from insar.objects.rsmas_logging import RsmasLogger, loglevel
+import insar.objects.messageRsmas
+import insar.utils.process_utilities as putils
 import stat
 import glob
 
-sys.path.insert(0, os.getenv('SSARAHOME'))
 import password_config as password
 
 logfile_name = os.getenv('OPERATIONS') + '/LOGS/asfserial_rsmas.log'
