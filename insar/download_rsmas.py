@@ -74,12 +74,16 @@ def download(script_name, inps, outnum):
          print(os.getenv('DOWNLOADHOST'))
     if script_name=='ssara':
        try:
+           os.chdir(inps.slc_dir)
            download_ssara_rsmas.run_ssara(inps)
        except:
            raise Exception('Error running download_ssara_rsmas.py')
     elif script_name=='asfserial':
        try:
+           os.chdir(inps.slc_dir)
+           download_asfserial_rsmas.generate_files_csv()
            download_asfserial_rsmas.run_download_asf_serial()
+           download_asfserial_rsmas.change_file_permissions()
        except:
            raise Exception('Error running download_asfserial_rsmas.py')
                   
