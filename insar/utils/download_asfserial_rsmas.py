@@ -7,7 +7,7 @@ import time
 from insar.objects.dataset_template import Template
 import datetime
 from insar.objects.rsmas_logging import RsmasLogger, loglevel
-import insar.objects.messageRsmas
+from insar.objects import messageRsmas
 import insar.utils.process_utilities as putils
 import stat
 import glob
