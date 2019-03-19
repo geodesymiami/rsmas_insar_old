@@ -67,14 +67,18 @@ def download(script_name, inps, outnum):
     #command = '({0} > {1}.o) >& {1}.e'.format(command, out_file)
 
     if os.getenv('DOWNLOADHOST') == 'local':
+         ssh_command_list = ['s.bgood', 'cd {0}'.format(inps.slc_dir)]
+         host = os.getenv('DOWNLOADHOST')
+         status = ssh_with_commands(host, ssh_command_list)
+         
          if script_name=='ssara':
             try:
-                download_ssara_rsmas.run_ssara(inps)
+                successful=download_ssara_rsmas.run_ssara(inps)
             except:
                 raise Exception('Error running download_ssara_rsmas.py')
          elif script_name=='asfserial':
             try:
-                download_asfserial_rsmas.run_download_asf_serial()
+                successful=download_asfserial_rsmas.run_download_asf_serial()
             except:
                 raise Exception('Error running download_asfserial_rsmas.py')
                   
@@ -84,11 +88,11 @@ def download(script_name, inps, outnum):
         #if proc.returncode is not 0:
         #    raise Exception('ERROR downloading using: download_{0}_rsmas.py'.format(script_name))
     #else:
-        ssh_command_list = ['s.bgood', 'cd {0}'.format(inps.slc_dir), command]
-        host = os.getenv('DOWNLOADHOST')
-        status = ssh_with_commands(host, ssh_command_list)
+        #ssh_command_list = ['s.bgood', 'cd {0}'.format(inps.slc_dir), command]
+        #host = os.getenv('DOWNLOADHOST')
+        #status = ssh_with_commands(host, ssh_command_list)
 
-    print('Exit status from download_{0}_rsmas.py: {1}'.format(script_name, status))
+    print('Exit status from download_{0}_rsmas.py: {1}'.format(script_name, successful))
 
 ###############################################################################
 
