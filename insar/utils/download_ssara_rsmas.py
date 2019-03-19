@@ -8,7 +8,7 @@ import datetime
 import argparse
 from insar.objects.dataset_template import Template
 from insar.objects.rsmas_logging import RsmasLogger, loglevel
-import insar.objects.messageRsmas
+from insar.objects import messageRsmas
 from insar.utils import process_utilities as putils
 import password_config as password
 
