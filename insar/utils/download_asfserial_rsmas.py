@@ -65,7 +65,7 @@ def run_download_asf_serial(run_number=1):
 	logger.log(loglevel.INFO, "RUN NUMBER: %s", str(run_number))
 	if run_number > 10:
 		return 0
-        scriptname = os.path.join(os.getenv('RSMAS_INSAR'),'insar/utils/download_ASF_serial.py')
+	scriptname = os.path.join(os.getenv('RSMAS_INSAR'),'insar/utils/download_ASF_serial.py')
 	asfserial_process = subprocess.Popen([scriptname, '-username', password.asfuser, '-password', password.asfpass, 'new_files.csv'])
 
 	completion_status = asfserial_process.poll()  # the completion status of the process
