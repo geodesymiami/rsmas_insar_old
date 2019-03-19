@@ -92,7 +92,7 @@ def download(script_name, inps, outnum):
         #host = os.getenv('DOWNLOADHOST')
         #status = ssh_with_commands(host, ssh_command_list)
 
-    print('Exit status from download_{0}_rsmas.py: {1}'.format(script_name, successful))
+    #print('Exit status from download_{0}_rsmas.py: {1}'.format(script_name, successful))
 
 ###############################################################################
 
