@@ -17,10 +17,10 @@ from insar.utils.processSteps import RsmasInsar, command_line_parse
 
 ###############################################################################
 
-if __name__ == "__main__":
+def main(iargs=None):
 
     start_time = time.time()
-    inps = command_line_parse()
+    inps = command_line_parse(iargs)
 
     command_line = os.path.basename(sys.argv[0]) + ' ' + ' '.join(sys.argv[1:])
     messageRsmas.log('##### NEW RUN #####')
@@ -33,4 +33,9 @@ if __name__ == "__main__":
     # Timing
     m, s = divmod(time.time() - start_time, 60)
     print('\nTotal time: {:02.0f} mins {:02.1f} secs'.format(m, s))
+    return
+
+###########################################################################################
+if __name__ == '__main__':
+    main()
 
