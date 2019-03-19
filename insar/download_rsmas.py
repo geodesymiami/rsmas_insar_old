@@ -137,9 +137,9 @@ def main(iargs=None):
 
         return
 
-    download('ssara', inps.template_file, inps.slc_dir, outnum = 1)
+    download('ssara', inps, outnum = 1)
     #download('ssara', inps.template_file, slc_dir, outnum = 2)
-    download('asfserial', inps.template_file, inps.slc_dir, outnum = 1)
+    download('asfserial', inps, outnum = 1)
     #download('asfserial', inps.template_file, slc_dir, outnum = 1)
 
 ###########################################################################################
