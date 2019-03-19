@@ -32,7 +32,7 @@ def command_line_parse(args):
 	parser = create_parser()
 	inps = parser.parse_args(args)
 
-def generate_files_csv():
+def generate_files_csv(inps):
 	""" Generates a csv file of the files to download serially.
 	
 	    Uses the `awk` command to generate a csv file containing the data files to be download
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 		pass
 	
 
-	generate_files_csv()
+	generate_files_csv(inps)
 	succesful = run_download_asf_serial()
 	change_file_permissions()
 	logger.log(loglevel.INFO, "SUCCESS: %s", str(succesful))
