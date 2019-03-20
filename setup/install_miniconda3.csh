@@ -6,7 +6,7 @@ mkdir -p downloads;
 cd downloads;
 
 echo "downloading miniconda ..."
-#wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-check-certificate #; if ($? != 0) exit; 
+wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh --no-check-certificate #; if ($? != 0) exit; 
 chmod 755 Miniconda3-latest-Linux-x86_64.sh
 cd ..
 downloads/Miniconda3-latest-Linux-x86_64.sh -b -p ../3rdparty/miniconda3
