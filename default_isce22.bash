@@ -10,8 +10,6 @@ export WORKDIR=~/insarlab
 export NOTIFICATIONEMAIL=${USER}\@rsmas.miami.edu
 export INT_SCR=${PARENTDIR}/sources/roipac/INT_SCR
 export DOWNLOADHOST=local
-export SENTINEL_ORBITS=${HOME}/insarlab/orbits
-export SENTINEL_AUX=${HOME}/insarlab/auxfiles
 
 ############ Standard directories ###########
 export JOBDIR=${WORKDIR}/JOBS
@@ -22,7 +20,7 @@ export TESTDATA_ISCE=${WORKDIR}/TESTDATA_ISCE
 export TEMPLATES=${WORKDIR}/infiles/${USER}/TEMPLATES
 export TE=${TEMPLATES}
 
-export GEODMOD_WORKDIR=${WORKDIR}/infiles/${USER}/MINDIR
+export GEODMOD_WORKDIR=${WORKDIR}/MINDIR
 export GEODMODHOME=${PARENTDIR}/sources/geodmod                             
 export GEODMOD_TESTDATA=${PARENTDIR}/data/testdata/geodmod
 export GEODMOD_TESTBENCH=${SCRATCHDIR}/GEODMOD_TESTBENCH
@@ -31,16 +29,17 @@ export MAKEDEMHOME=${PARENTDIR}/sources/roipac/makedem
 export MAKEDEM_SCR=${MAKEDEMHOME}/SCRIPTS
 export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/LIN
 
-############ FOR PROCESSDING  #########
+export SENTINEL_ORBITS=${WORKDIR}/S1orbits
+export SENTINEL_AUX=${WORKDIR}/S1aux
+export WEATHERDIR=${WORKDIR}/WEATHER
+
+############ FOR PROCESSING  #########
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA
 export SSARA_ASF=${PARENTDIR}/sources/ssara_ASF
-export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE/isce
-export RSMAS_INSAR=${PARENTDIR}
+export ISCEHOME=${PARENTDIR}/3rdparty/isce/ISCE/isce
 #export SENTINEL_STACK=${PARENTDIR}/3rdparty/isce/isce-2.2.0/contrib/stack/topsStack/
-export ISCE_STACK=${PARENTDIR}/sources/isceStack/sentinelstack
-#export ISCE_STACK=${PARENTDIR}/sources/isceStack/topsStack
-#export ISCE_STACK=${PARENTDIR}/sources/isceStack/stripmaptack
-#export ISCE_RSMAS=${PARENTDIR}/sources/isce_rsmas
+export SENTINEL_STACK=${PARENTDIR}/sources/isceStack/sentinelstack
+export SENTINEL_STACK_MODIFIED=${PARENTDIR}/sources/sentinelstack_modified
 export PYSAR_HOME=${PARENTDIR}/sources/PySAR
 export SQUEESAR=${PARENTDIR}/sources/pysqsar
 
@@ -54,26 +53,24 @@ export GDAL_DATA=${PYTHON3DIR}/share/gdal
 export PYTHONPATH=${PYTHONPATH-""}
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
-export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/isce/ISCE:${PYTHON3DIR}/lib/python3.6/site-packages
+export PYTHONPATH=${PYTHONPATH}:${ISCEHOME}:${PYTHON3DIR}/lib/python3.6/site-packages
 export PYTHONPATH=${PYTHONPATH}:${SQUEESAR}
-export PYTHONPATH=${PYTHONPATH}:${RSMAS_INSAR}
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_isce
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_tools
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/PyAPS
-export PYTHONPATH=${PYTHONPATH}:${ISCE_STACK}
-export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/setup/accounts
+export PYTHONPATH=${PYTHONPATH}:${SENTINEL_STACK}
 export PYTHONPATH_RSMAS=${PYTHONPATH}
-export PROJ_LIB=${PARENTDIR}/3rdparty/miniconda3/share/proj
 
 #####################################
 ############ Set paths ##############
 #####################################
 export PATH=${PATH}:${SSARAHOME}
 export PATH=${PATH}:${SSARA_ASF}
-export PATH=${PATH}:${SQUEESAR}
-export PATH=${PATH}:${RSMAS_INSAR}/insar:${RSMAS_INSAR}/insar/utils
+export PATH=${PATH}:${INT_SCR}:${SQUEESAR}:${SQUEESAR}/gamma
+export PATH=${PATH}:${PARENTDIR}/sources/rsmas_isce
 export PATH=${PATH}:${PARENTDIR}/setup/accounts
 export PATH=${PATH}:${PARENTDIR}/sources/rsmas_tools/SAR:${PARENTDIR}/sources/rsmas_tools/GPS:${PARENTDIR}/sources/rsmas_tools/notebooks
-export PATH=:${ISCE_HOME}/applications:${ISCE_HOME}/bin:${ISCE_RSMAS}:${ISCE_STACK}:${PATH}
+export PATH=${ISCEHOME}/isce/applications:${ISCEHOME}/isce/bin:${SENTINEL_STACK_MODIFIED}:${SENTINEL_STACK}:${PATH}
 export PATH=${PATH}:${PYSAR_HOME}/pysar:${PYSAR_HOME}/sh
 export PATH=${PYTHON3DIR}/bin:${PATH}
 export PATH=${PATH}:${PROJ_LIB} 
