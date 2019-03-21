@@ -12,26 +12,23 @@ cd ~/test/test1
 
 * Install the code using the commands below (you need a reasonable recent git version (the default on pegasus is too old, get a [local version](https://github.com/geodesymiami/rsmas_insar/blob/master/setup/install_git.md), or use an old rsmas_insar version). Installation takes about 10 minutes.  For the contents of the accounts repository see [here](https://github.com/geodesymiami/rsmas_insar/blob/master/setup/accounts_info.md) if you don't have access.
 
-Old version (detached HEAD, don't commit!):
+Old version:
 ```
 alias git='~/local_git/miniconda3/bin/git'
 
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
-git checkout 15925f0
 source default_isce22.bash;
-cd docs;
-git clone https://github.com/geodesymiami/accounts ;
+cd setup;
 ./install_miniconda3.csh;
 hash -r;
+git clone https://github.com/geodesymiami/accounts ;
 ./download_ssara_tippecanoe_3rdparty.sh;
 ./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
-cd .. ;
-mkdir sources;
-cd sources;
 
+cd ../sources ;
 git clone https://github.com/geodesymiami/rsmas_isce.git ; 
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
@@ -51,7 +48,7 @@ mkdir -p $SENTINEL_AUX;
 echo DONE;
 ```
 
-New version, to use once Sara's refactor is complete:
+New version, to use once Sara's restructuring is complete:
 ```
 alias git='~/local_git/miniconda3/bin/git'
 
