@@ -168,6 +168,9 @@ class post_run(object):
         for k in inps.__dict__.keys():
             setattr(self, k, inps.__dict__[k])
         self.runDir = os.path.join(self.work_dir, 'post_run_files')
+
+        self.slcDir = os.path.join(self.work_dir, 'merged/SLC')
+
         if not os.path.exists(self.runDir):
             os.makedirs(self.runDir)
 
@@ -222,7 +225,7 @@ class post_run(object):
         configName = os.path.join(self.config_path, 'config_create_patch')
         configObj = config(self.config_path, configName)
         configObj.configure(self)
-        configObj.slcDir = inps.slc_dirname
+        configObj.slcDir = self.slcDir
         configObj.sqDir = inps.squeesar_dir
         configObj.patchSize = inps.patch_size
         configObj.rangeWindow = inps.range_window
@@ -248,7 +251,7 @@ class post_run(object):
 
 
     def generateIfg(self, inps, acquisitions):
-        ifgram_dir = os.path.dirname(inps.slc_dirname) + '/interferograms'
+        ifgram_dir = os.path.dirname(self.slcDir) + '/interferograms'
         if not os.path.isdir(ifgram_dir):
             os.mkdir(ifgram_dir)
         index = 0

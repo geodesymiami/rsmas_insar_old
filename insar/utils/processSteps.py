@@ -211,13 +211,6 @@ class RsmasInsar:
         #2.1 Get work_dir
         self.work_dir = putils.get_work_directory(None, self.project_name)
 
-        #2.2 Go to work_dir
-        if not os.path.isdir(self.work_dir):
-            os.makedirs(self.work_dir)
-            print('create directory:', self.work_dir)
-        os.chdir(self.work_dir)
-        print("Go to work directory:", self.work_dir)
-
         #3. Read templates
         #3.1 Get default template file
         lfile = os.path.join(os.getenv('PARENTDIR'), 'insar/defaults/rsmas_insar_template.txt')  #latest version

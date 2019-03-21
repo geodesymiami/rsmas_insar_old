@@ -26,5 +26,5 @@ sentinelStack.workflow                    = auto         # [interferogram / offs
 sentinelStack.startDate                   = auto         # [YYYY-MM-DD]. auto for first date available
 sentinelStack.stopDate                    = auto         # [YYYY-MM-DD]. auto for end date available
 sentinelStack.useGPU                      = auto         # Allow App to use GPU when available
-sentinelStack.processingMethod            = auto         # [sbas, squeesar, ps]
+sentinelStack.processingMethod            = auto         # [smallbaseline, squeesar]
 sentinelStack.demMethod                   = auto         # [bbox, ssara]

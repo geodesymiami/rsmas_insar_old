@@ -45,11 +45,11 @@ def createParser():
     parser.add_argument('-H', '--hh', nargs=0, action=customArgparseAction,
                         help='Display detailed help information.')
 
-    parser.add_argument('customTemplateFile', nargs='?',
+    parser.add_argument('--customTemplateFile', dest='customTemplateFile', nargs='?',
                         help='custom template with option settings.\n' +
                              "It's equivalent to None if default pysarApp_template.txt is input.")
 
-    parser.add_argument('-s', '--slc_directory', dest='slc_dirname', type=str, default='./merged/SLC',
+    parser.add_argument('-s', '--slc_directory', dest='slc_dirname', type=str, default='./SLC',
                         help='Directory with all Sentinel coregistered SLCs')
 
     parser.add_argument('-w', '--working_directory', dest='work_dir', type=str, default='./',
@@ -71,7 +71,7 @@ def createParser():
                         , help='SHP searching window size in azimuth direction. -- Default : 15')
 
 
-    parser.add_argument('-b', '--cropbox', dest='cropbox', type=str, default=None,
+    parser.add_argument('-b', '--bbox', dest='bbox', type=str, default=None,
                         help="Lat/Lon Bounding SNWE. -- Example : '19 20 -99.5 -98.5' -- cropping area")
 
     parser.add_argument('-t', '--text_cmd', dest='text_cmd', type=str, default='',
@@ -79,6 +79,10 @@ def createParser():
 
     parser.add_argument('-x', '--exclude_dates', dest='exclude_dates', type=str, default=None,
                         help="List of the dates to be excluded for processing. -- Example : '20141007,20141031' -- Default: No dates excluded")
+
+    parser.add_argument('-i', '--include_dates', dest='include_dates', type=str, default=None
+                        ,
+                        help="List of the dates to be included for processing. -- Example : '20141007,20141031' -- Default: No dates excluded")
 
     parser.add_argument('-z', '--azimuth_looks', dest='azimuthLooks', type=str, default='3'
                         , help='Number of looks in azimuth for interferogram multi-looking. -- Default : 3')
@@ -98,6 +102,8 @@ def cmdLineParse(iargs=None):
     inps = parser.parse_args(args=iargs)
     inps.slc_dirname = os.path.abspath(inps.slc_dirname)
     inps.work_dir = os.path.abspath(inps.work_dir)
+
+    import pbd; pdb.set_trace()
 
     return inps
 
@@ -230,7 +236,7 @@ def main(iargs=None):
             inps.geo_master_dir = os.path.join(inps.work_dir, 'merged/geom_master')
             inps.squeesar_dir = os.path.join(inps.work_dir, 'SqueeSAR')
 
-            cbox = [val for val in inps.cropbox.split()]
+            cbox = [val for val in inps.bbox.split()]
             if len(cbox) != 4:
                 raise Exception('Bbox should contain 4 floating point values')
 

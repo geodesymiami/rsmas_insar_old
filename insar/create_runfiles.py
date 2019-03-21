@@ -49,7 +49,7 @@ def command_line_parse(args):
 
 def main(argv):
 
-    inps = command_line_parse(sys.argv[1:])
+    inps = command_line_parse(argv[:])
     inps.project_name = get_project_name(inps.customTemplateFile)
     inps.work_dir = get_work_directory(None, inps.project_name)
     inps = create_or_update_template(inps)
@@ -77,6 +77,8 @@ def main(argv):
 
 
     elif inps.step == 'mainprocess':
+
+        inps.slcDir = inps.work_dir + '/SLC'
         try:
             files1 = glob.glob(inps.work_dir + '/DEM/*.wgs84')[0]
             files2 = glob.glob(inps.work_dir + '/DEM/*.dem')[0]
@@ -137,7 +139,7 @@ def main(argv):
 
         print('inps:\n', inps)
 
-        inps.cropbox = '"{} {} {} {}"'.format(inps.custom_template['lat_south'], inps.custom_template['lat_north'],
+        inps.bbox = '"{} {} {} {}"'.format(inps.custom_template['lat_south'], inps.custom_template['lat_north'],
                                               inps.custom_template['lon_west'], inps.custom_template['lon_east'])
 
         command = 'stackRsmas.py'
@@ -157,14 +159,15 @@ def main(argv):
         inps.range_window = inpspar[2]
         inps.azimuth_window = inpspar[3]
         inps.slcDir = inps.work_dir + '/merged/SLC'
+        inps.technique = inps.processingMethod
 
         prefixletters = ['-customTemplateFile', '-slc_directory', '-working_directory', '-technique',
-                         '-patchsize', '-plmethod', '-range_window', '-azimuth_window', '-cropbox',
+                         '-patchsize', '-plmethod', '-range_window', '-azimuth_window', '-bbox',
                          '-exclude_dates', '-azimuth_looks', '-range_looks', '-unw_method',
                          '-text_cmd']
 
-        inpsvalue = ['customTemplateFile', 'slcDir', 'workingDir', 'patch_size', 'plmethod',
-                     'range_window', 'azimuth_window', 'cropbox', 'excludeDate', 'azimuthLooks', 'rangeLooks',
+        inpsvalue = ['customTemplateFile', 'slcDir', 'workingDir', 'technique', 'patch_size', 'plmethod',
+                     'range_window', 'azimuth_window', 'bbox', 'excludeDate', 'azimuthLooks', 'rangeLooks',
                      'unwMethod', 'textCmd']
 
         for value, pref in zip(inpsvalue, prefixletters):

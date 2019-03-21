@@ -57,10 +57,11 @@ sentinelStack.workflow                    = auto         # [interferogram / offs
 sentinelStack.startDate                   = auto         # [YYYY-MM-DD]. auto for first date available
 sentinelStack.stopDate                    = auto         # [YYYY-MM-DD]. auto for end date available
 sentinelStack.useGPU                      = auto         # Allow App to use GPU when available [default: False]
-sentinelStack.processingMethod            = auto         # [sbas, squeesar, ps]
-sentinelStack.demMethod                   = auto         # [bbox, ssara]
+sentinelStack.processingMethod            = auto         # [smallbaseline, squeesar]
+
 '''
 #### More options to be added if required:
+#sentinelStack.demMethod                   = auto         # [bbox, ssara]
 #sentinelStack.pairList                    = auto         # [file] file containing pairs to process in each line. auto for None
 #sentinelStack.overridePairs               = auto         # [yes, no] override program-generated pairs with the files on the list. auto for no
 #sentinelStack.cleanUp                     = auto         # [False, True] Remove fine*int burst fines. auto for False
@@ -124,11 +125,11 @@ def create_or_update_template(inps):
     """ Creates a default template file and/or updates it.
         returns the values in 'inps'
     """
-
+    import pdb;pdb.set_trace()
     print('\n*************** Template Options ****************')
     # write default template
     inps.template_file = create_default_template()
-    templateObj = Template(custom_template_file=inps.customTemplateFile)
+    templateObj = Template(inps.customTemplateFile)
     inps.custom_template = templateObj.get_options()
     
     # Read and update default template with custom input template 
@@ -192,7 +193,7 @@ def set_default_options(inps):
     TemplateTuple = namedtuple(typename='TemplateTuple',
                                field_names=['key', 'inps_name', 'default_value'])
 
-    # Processing methods added by Sara 2018  (values can be: 'sbas', 'squeesar', 'ps'), ps is not
+    # Processing methods added by Sara 2018  (values can be: 'smallbaseline', 'squeesar'), ps is not
     # implemented yet
     required_template_vals = \
         [TemplateTuple('sentinelStack.subswath', 'subswath', None),
@@ -219,10 +220,9 @@ def set_default_options(inps):
          TemplateTuple('sentinelStack.startDate', 'startDate', None),
          TemplateTuple('sentinelStack.stopDate', 'stopDate', None),
          TemplateTuple('sentinelStack.useGPU', 'useGPU', False),
-         TemplateTuple('sentinelStack.processingMethod', 'processingMethod', 'sbas'),
-         TemplateTuple('sentinelStack.demMethod', 'demMethod', 'bbox'),
+         TemplateTuple('sentinelStack.processingMethod', 'processingMethod', 'smallbaseline')
          ]
-        
+        # TemplateTuple('sentinelStack.demMethod', 'demMethod', 'bbox'),
         # TemplateTuple('sentinelStack.pairList', 'ilist', None),
         # TemplateTuple('sentinelStack.overridePairs', 'ilistonly', 'no'),
         # TemplateTuple('sentinelStack.cleanUp', 'cleanup', False),
