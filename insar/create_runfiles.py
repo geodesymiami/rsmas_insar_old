@@ -158,7 +158,7 @@ def main(argv):
         inps.patch_size = inpspar[1]
         inps.range_window = inpspar[2]
         inps.azimuth_window = inpspar[3]
-        inps.slcDir = inps.work_dir + '/merged/SLC'
+        inps.slcDir = inps.work_dir + '/SLC'
         inps.technique = inps.processingMethod
 
         prefixletters = ['-customTemplateFile', '-slc_directory', '-working_directory', '-technique',

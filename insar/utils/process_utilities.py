@@ -125,16 +125,15 @@ def create_or_update_template(inps):
     """ Creates a default template file and/or updates it.
         returns the values in 'inps'
     """
-    import pdb;pdb.set_trace()
     print('\n*************** Template Options ****************')
     # write default template
     inps.template_file = create_default_template()
     templateObj = Template(inps.customTemplateFile)
     inps.custom_template = templateObj.get_options()
-    
+    inps.template = inps.custom_template
     # Read and update default template with custom input template 
-    if not inps.template_file == inps.customTemplateFile:
-        inps.template = templateObj.update_options_from_file(inps.template_file)
+    #if not inps.template_file == inps.customTemplateFile:
+    #    inps.template = templateObj.update_options_from_file(inps.template_file)
 
     set_default_options(inps)
 

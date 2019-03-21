@@ -4,9 +4,8 @@
 # based on stackSentinel.py
 #####################################
 
-import os, sys
+import os, sys, glob
 import argparse
-from stackSentinel import get_dates
 import numpy as np
 from insar.objects.stack_rsmas import config, pre_run, post_run
 from pysqsar_utilities import convert_geo2image_coord, patch_slice
@@ -103,9 +102,18 @@ def cmdLineParse(iargs=None):
     inps.slc_dirname = os.path.abspath(inps.slc_dirname)
     inps.work_dir = os.path.abspath(inps.work_dir)
 
-    import pbd; pdb.set_trace()
-
     return inps
+
+
+def get_dates_sentinel(slc_dirname):
+    from Stack import sentinelSLC
+    SAFE_files = glob.glob(os.path.join(slc_dirname, 'S1*_IW_SLC*'))
+    dateList = []
+    for safe in SAFE_files:
+        safeObj = sentinelSLC(safe)
+        safeObj.get_dates()
+        dateList.append(safeObj.date)
+    return dateList
 
 
 ########################################
@@ -231,7 +239,7 @@ def main(iargs=None):
 
         else:
 
-            dateList, stackMasterDate, slaveDates, safe_dict = get_dates(inps)
+            dateList = get_dates_sentinel(inps.slc_dirname)
 
             inps.geo_master_dir = os.path.join(inps.work_dir, 'merged/geom_master')
             inps.squeesar_dir = os.path.join(inps.work_dir, 'SqueeSAR')
@@ -239,7 +247,6 @@ def main(iargs=None):
             cbox = [val for val in inps.bbox.split()]
             if len(cbox) != 4:
                 raise Exception('Bbox should contain 4 floating point values')
-
 
             crop_area = np.array(convert_geo2image_coord(inps.geo_master_dir, np.float32(cbox[0]), np.float32(cbox[1]),
                                                  np.float32(cbox[2]), np.float32(cbox[3])))

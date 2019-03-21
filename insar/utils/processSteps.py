@@ -21,7 +21,6 @@ from pysar.utils import readfile, utils as ut
 
 STEP_LIST = [
     'download',
-    'runfiles',
     'proc_image',
     'timeseries',
     ]
@@ -33,7 +32,7 @@ STEP_HELP = """Command line options for steps processing with names are chosen f
 In order to use either --start or --dostep, it is necessary that a
 previous run was done using one of the steps options to process at least
 through the step immediately preceding the starting step of the current run.
-""".format(STEP_LIST[0:4])
+""".format(STEP_LIST[0:3])
 
 EXAMPLE = """example: 
   process_rsmas.py  <customTemplateFile>            #run with default and custom templates
@@ -278,27 +277,23 @@ class RsmasInsar:
         insar.execute_pre_runfiles.main([self.customTemplateFile])
         return
 
-    def create_run_files(self, step_name):
-        """ creating 2 folders for run files:
-        1. run_files
-        2. post_run_files
-        """
-        insar.create_runfiles.main([self.customTemplateFile, '--step', 'mainprocess'])
-        insar.create_runfiles.main([self.customTemplateFile, '--step', 'postprocess'])
-        return
 
     def run_process_images(self, step_name):
         """ Process images from unpacking to making interferograms
-            (steps in the run_files folder)
+        1. create run_files
+        2. execute run_files
         """
+        insar.create_runfiles.main([self.customTemplateFile, '--step', 'mainprocess'])
         insar.execute_runfiles.main([self.customTemplateFile])
         return
 
     def run_timeseries_and_insarmaps(self, step_name):
         """ Do the
+        1 - create post_run_files
         1 - inversion either via small baseline or squeesar
         2 - corrections with PySAR
         """
+        insar.create_runfiles.main([self.customTemplateFile, '--step', 'postprocess'])
         insar.execute_post_runfiles.main([self.customTemplateFile])
         return
 
@@ -310,9 +305,6 @@ class RsmasInsar:
 
             if sname == 'download':
                 self.run_download_data(sname)
-
-            elif sname == 'runfiles':
-                self.create_run_files(sname)
 
             elif sname == 'proc_image':
                 self.run_process_images(sname)

@@ -164,7 +164,7 @@ class post_run(object):
     """
     #def __init__(self):
 
-    def configure_run(self, inps, runName):
+    def configure(self, inps, runName):
         for k in inps.__dict__.keys():
             setattr(self, k, inps.__dict__[k])
         self.runDir = os.path.join(self.work_dir, 'post_run_files')

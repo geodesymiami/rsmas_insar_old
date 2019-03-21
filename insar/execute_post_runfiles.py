@@ -25,6 +25,10 @@ def create_parser():
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1')
     parser.add_argument('custom_template_file', nargs='?',
                         help='custom template with option settings.\n')
+    parser.add_argument('start', nargs='?', type=int,
+                        help='starting run file number (default = 1).\n')
+    parser.add_argument('stop', nargs='?', type=int,
+                        help='stopping run file number.\n')
 
     return parser
 
@@ -108,39 +112,27 @@ def submit_run_jobs(run_file_list, cwd, memoryuse):
 
 
 ##############################################################################
-class inpsvar:
-    pass
-
-def main(argv):
-
-    inps = inpsvar()
-
-    try:
-        inps.custom_template_file = sys.argv[1]
-        inps.start = int(sys.argv[2])
-        inps.stop = int(sys.argv[3])
-    except:
-        print('')
+def main(iargs=None):
+    inps = command_line_parse(iargs)
 
     inps.project_name = get_project_name(inps.custom_template_file)
     inps.work_dir = os.getenv('SCRATCHDIR') + '/' + inps.project_name
-    inps = readfile.read_template(inps.custom_template_file)
+
     run_file_list = get_run_files(inps)
 
-    try:
-        inps.start
-    except:
+    if inps.start is None:
         inps.start = 1
-    try:
-        inps.stop
-    except:
+    if inps.stop is None:
         inps.stop = len(run_file_list)
+
 
     memoryuse = set_memory_defaults()
 
     submit_run_jobs(run_file_list[inps.start - 1:inps.stop], inps.work_dir, memoryuse)
+    return None
+
 
 ###########################################################################################
 
 if __name__ == "__main__":
-    main(sys.argv[:])
+    main()

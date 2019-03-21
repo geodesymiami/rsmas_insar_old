@@ -26,7 +26,10 @@ def create_parser():
     parser.add_argument('-v', '--version', action='version', version='%(prog)s 0.1')
     parser.add_argument('custom_template_file', nargs='?',
                         help='custom template with option settings.\n')
-
+    parser.add_argument('start', nargs='?', type=int,
+                        help='starting run file number (default = 1).\n')
+    parser.add_argument('stop', nargs='?', type=int,
+                        help='stopping run file number.\n')
     return parser
 
 
@@ -40,7 +43,7 @@ def command_line_parse(iargs=None):
 
 
 def get_run_files(inps):
-    """ Reads squeesar runfiles to a list. """
+    """ Reads pre processing runfiles to a list. """
 
     runfiles = os.path.join(inps.work_dir, 'pre_run_files_list')
     run_file_list = []
@@ -95,6 +98,7 @@ def submit_run_jobs(run_file_list, cwd, memoryuse):
 
         if not os.path.isdir(job_folder):
             os.makedirs(job_folder)
+
         mvlist = ['*.e ', '*.o ', '*.job ']
         for mvitem in mvlist:
             cmd = 'mv ' + cwd + '/pre_run_files/' + mvitem + job_folder
@@ -115,13 +119,9 @@ def main(iargs=None):
     
     run_file_list = get_run_files(inps)
 
-    try:
-        inps.start
-    except:
+    if inps.start is None:
         inps.start = 1
-    try:
-        inps.stop
-    except:
+    if inps.stop is None:
         inps.stop = len(run_file_list)
 
     memoryuse = set_memory_defaults()
