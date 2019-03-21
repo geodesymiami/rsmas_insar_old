@@ -28,8 +28,8 @@ git clone https://github.com/geodesymiami/accounts ;
 ./download_isce.py
 ./install_isce22.csh;
 
-git clone https://github.com/geodesymiami/rsmas_isce.git  insar; 
 cd ../sources ;
+git clone https://github.com/geodesymiami/rsmas_isce.git ; 
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
 cd -;
