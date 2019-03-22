@@ -8,8 +8,8 @@ setenv SCONS_CONFIG_DIR ${PARENTDIR}/3rdparty/isce/isce-2.2.0
 echo "Create SConfigISCE file  ..."
 ########################################################
 cat >! SConfigISCE<<EOF
-PRJ_SCONS_BUILD = $ISCE_HOME/build/
-PRJ_SCONS_INSTALL = $ISCE_HOME/isce/
+PRJ_SCONS_BUILD = $ISCE_BUILD/build/
+PRJ_SCONS_INSTALL = $ISCE_BUILD/isce/
 LIBPATH = $PYTHON3DIR/lib64/ $PYTHON3DIR/lib
 CPPPATH = $PYTHON3DIR/include $PYTHON3DIR/include/python3.6m $PYTHON3DIR/lib/python3.6/site-packages/numpy/core/include
 FORTRANPATH = $PYTHON3DIR/include
