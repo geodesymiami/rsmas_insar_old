@@ -14,8 +14,6 @@ cd ~/test/test1
 
 Old version:
 ```
-alias git='~/local_git/miniconda3/bin/git'
-
 git clone https://github.com/geodesymiami/rsmas_insar.git ;
 cd rsmas_insar;
 source default_isce22.bash;
