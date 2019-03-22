@@ -36,7 +36,7 @@ export WEATHERDIR=${WORKDIR}/WEATHER
 ############ FOR PROCESSING  #########
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA
 export SSARA_ASF=${PARENTDIR}/sources/ssara_ASF
-export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE/isce/isce
+export ISCE_HOME=${PARENTDIR}/3rdparty/isce/ISCE/isce
 #export SENTINEL_STACK=${PARENTDIR}/3rdparty/isce/isce-2.2.0/contrib/stack/topsStack/
 export SENTINEL_STACK=${PARENTDIR}/sources/isceStack/sentinelstack
 export SENTINEL_STACK_MODIFIED=${PARENTDIR}/sources/sentinelstack_modified
@@ -53,7 +53,7 @@ export GDAL_DATA=${PYTHON3DIR}/share/gdal
 export PYTHONPATH=${PYTHONPATH-""}
 export PYTHONPATH=${PYTHONPATH}:${PYSAR_HOME}
 export PYTHONPATH=${PYTHONPATH}:${INT_SCR}
-export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/isce/ISCE/isce:${PYTHON3DIR}/lib/python3.6/site-packages
+export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/3rdparty/isce/ISCE:${PYTHON3DIR}/lib/python3.6/site-packages
 export PYTHONPATH=${PYTHONPATH}:${SQUEESAR}
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_isce
 export PYTHONPATH=${PYTHONPATH}:${PARENTDIR}/sources/rsmas_tools
