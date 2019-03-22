@@ -30,8 +30,8 @@ cd ../sources ;
 git clone https://github.com/geodesymiami/rsmas_isce.git ; 
 git clone https://github.com/yunjunz/PySAR.git ;
 git clone https://github.com/falkamelung/geodmod.git ;
-cd -;
-cd docs;
+cd ..;
+cd setup;
 make PYKML ;
 mkdir -p ~/insarlab/OPERATIONS/LOGS
 echo DONE WITH CRITICAL CODE ;
