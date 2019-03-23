@@ -69,6 +69,7 @@ fontconfig=2.12.6=h49f89f6_0
 freetype=2.8=hab7d2ae_1
 freexl=1.0.5=h14c3975_0
 gcc-5=5.2.0=1
+gdal=2.2.2=py36hc209d97_1
 geocoder=1.38.1=py_0
 geos=3.6.2=heeff764_2
 get_terminal_size=1.0.0=haa9412d_0
