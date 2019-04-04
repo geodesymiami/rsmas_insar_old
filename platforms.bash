@@ -10,6 +10,7 @@ then
   export DOWNLOADHOST=visx.ccs.miami.edu
   export SENTINEL_ORBITS=/nethome/swdowinski/S1orbits
   export SENTINEL_AUX=/nethome/swdowinski/S1aux
+  export WEATHER_DIR=/nethome/dwg11/insarlab/WEATHER
   export TESTDATADIR=visx.ccs.miami.edu:/famelung/famelung/testdata
   export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/LIN
   export MATLABHOME=/share/opt/MATLAB/R2014b

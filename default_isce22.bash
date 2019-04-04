@@ -31,7 +31,7 @@ export MAKEDEM_BIN=/nethome/famelung/test/testq/rsmas_insar/sources/roipac/BIN/L
 
 export SENTINEL_ORBITS=${WORKDIR}/S1orbits
 export SENTINEL_AUX=${WORKDIR}/S1aux
-export WEATHERDIR=${WORKDIR}/WEATHER
+export WEATHER_DIR=${WORKDIR}/WEATHER
 
 ############ FOR PROCESSING  #########
 export SSARAHOME=${PARENTDIR}/3rdparty/SSARA

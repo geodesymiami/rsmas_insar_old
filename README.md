@@ -22,6 +22,7 @@ cd setup;
 hash -r;
 git clone https://github.com/geodesymiami/accounts ;
 ./download_ssara_tippecanoe_3rdparty.sh;
+./download_atmosphere_code.sh;
 ./install_credential_files.csh;
 ./download_isce.py
 ./install_isce22.csh;
