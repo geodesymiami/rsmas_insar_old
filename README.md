@@ -1,4 +1,4 @@
-# rsmas_insar
+# rsmas_insar_old
 How to install RSMAS InSAR code.
 
 * Use bash shell [see here for tcsh.](https://github.com/geodesymiami/rsmas_insar/blob/master/setup/readme_old_tcsh) 
@@ -14,7 +14,7 @@ cd ~/test/test1
 
 Old version:
 ```
-git clone https://github.com/geodesymiami/rsmas_insar.git ;
+git clone https://github.com/geodesymiami/rsmas_insar_old.git ;
 cd rsmas_insar;
 source default_isce22.bash;
 cd setup;
@@ -51,7 +51,7 @@ New version, to use once Sara's restructuring is complete:
 ```
 alias git='~/local_git/miniconda3/bin/git'
 
-git clone https://github.com/geodesymiami/rsmas_insar.git ;
+git clone https://github.com/geodesymiami/rsmas_insar_old.git ;
 cd rsmas_insar;
 source default_isce22.bash;
 cd setup;
